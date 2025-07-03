@@ -1,5 +1,5 @@
 
-### 🎓 Alumni Association Portal – SIH1609
+# 🎓 Alumni Association Portal – SIH1609
 
 This project is a submission for **Smart India Hackathon 2024**, addressing **Problem Statement SIH1609**: *“Implementation of the Alumni Association Platform for the University/Institute.”*
 
