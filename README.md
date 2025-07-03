@@ -50,4 +50,4 @@ cd alumni-association-portal
 
 ---
 
-Built with ❤️ for Smart India Hackathon 2024 – Internal Round (Top 10 Finalist)
+Built for Smart India Hackathon 2024 – Internal Round (Top 10 Finalist)
