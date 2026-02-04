@@ -4,749 +4,1590 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alumni Association</title>
+    <title>Alumni Association Portal - SIH1609</title>
     <style>
-        /* Basic styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: PaleTurquoise;
+        /* =============== GLOBAL STYLES =============== */
+        * {
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            box-sizing: border-box;
         }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #AFEEEE 0%, #87CEEB 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* =============== HEADER & NAVIGATION =============== */
         header {
+            background: #FFFFFF;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
-            padding: 10px;
-            background-color: #FFFFFF;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .logo-container {
+        .logo-section {
             display: flex;
             align-items: center;
+            gap: 1rem;
         }
 
         .logo {
-            margin-right: 10px;
-        }
-
-        .site-name {
-            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #008B8B, #20B2AA);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             font-weight: bold;
-            color: #333;
+            font-size: 1.5rem;
         }
 
-        .nav-icon {
-            display: inline-block;
+        .site-title h1 {
+            font-size: 1.5rem;
+            color: #008B8B;
+            font-weight: 700;
+        }
+
+        .site-title p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .login-btn {
+            background: #008B8B;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #006666;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
             cursor: pointer;
         }
 
-        .nav-icon div {
-            width: 30px;
-            height: 4px;
-            background-color: #333;
-            margin: 5px;
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #008B8B;
+            border-radius: 3px;
             transition: 0.3s;
         }
 
-        .nav-menu {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            position: absolute;
-            top: 60px;
-            right: 20px;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            padding: 10px;
+        nav {
+            background: white;
+            padding: 0.5rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
-        .nav-menu a {
-            padding: 10px;
-            text-decoration: none;
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
             color: #333;
-            border-bottom: 1px solid #ddd;
-            width: 100%;
-            text-align: center;
-        }
-
-        .nav-menu a:hover {
-            background-color: #f0f0f0;
-        }
-
-        .content {
-            margin-top: 20px;
-            width: 80%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .button-container {
-            display: flex;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .button {
-            background-color: #008080;
-            color: white;
-            padding: 15px 25px;
-            border: none;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
             border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
 
-        .button:hover {
-            background-color: #006666;
+        .nav-link:hover,
+        .nav-link.active {
+            background: #AFEEEE;
+            color: #008B8B;
+        }
+
+        /* =============== MAIN CONTAINER =============== */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
         }
 
         .section {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px 0;
-            padding: 20px;
-            background-color: #FFFFFF;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+            animation: fadeIn 0.5s ease;
         }
 
-        .filter {
-            margin-bottom: 20px;
-        }
-
-        .filter label {
+        .section.active {
             display: block;
-            margin-bottom: 5px;
         }
 
-        .filter select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .profiles,
-        .events,
-        .achievements {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .profile-card,
-        .event-card,
-        .achievement-card {
-            width: 150px;
-            background-color: #FFFFFF;
+        /* =============== HOME/WELCOME SECTION =============== */
+        .welcome-section {
+            background: white;
+            padding: 3rem;
             border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
-            margin: 10px;
-            padding: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section h1 {
+            color: #008B8B;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-section p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F0F8FF 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             cursor: pointer;
+            text-align: center;
         }
 
-        .profile-card img,
-        .event-card img,
-        .achievement-card img {
-            width: 100%;
-            border-radius: 50%;
-            margin-bottom: 10px;
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 139, 139, 0.2);
         }
 
-        .form-container {
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #008B8B;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* =============== FILTERS =============== */
+        .filter-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .filter-group {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px;
-            padding: 20px;
-            background-color: #FFFFFF;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-        }
-
-        .bio-textbox,
-        .comment-textbox {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            resize: none;
-        }
-
-        .bio-container,
-        .achievement-container {
-            display: none;
-            flex-direction: column;
+            gap: 1rem;
+            flex-wrap: wrap;
             align-items: center;
         }
 
-        .login-container {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px;
-            padding: 20px;
-            background-color: #FFFFFF;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+        .filter-group label {
+            font-weight: 600;
+            color: #333;
         }
 
-        .input-field {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        .filter-group select,
+        .filter-group input {
+            padding: 0.6rem 1rem;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
         }
 
-        .login-button {
-            background-color: #008080;
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #008B8B;
+        }
+
+        .btn-primary {
+            background: #008B8B;
             color: white;
-            padding: 10px;
+            padding: 0.6rem 1.5rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
-        .login-button:hover {
-            background-color: #006666;
+        .btn-primary:hover {
+            background: #006666;
+            transform: translateY(-2px);
         }
 
-        .event-card img,
-        .achievement-card img {
+        /* =============== CARDS GRID =============== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0, 139, 139, 0.2);
+        }
+
+        .card-image {
             width: 100%;
-            border-radius: 15px;
+            height: 200px;
+            background: linear-gradient(135deg, #20B2AA, #008B8B);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
         }
 
-        .feedback-section {
-            display: flex;
-            flex-direction: column;
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body h3 {
+            color: #008B8B;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .card-body p {
+            color: #666;
+            font-size: 0.95rem;
+            margin: 0.3rem 0;
+        }
+
+        .card-badge {
+            display: inline-block;
+            background: #E0F7FA;
+            color: #008B8B;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin: 0.5rem 0.5rem 0 0;
+        }
+
+        /* =============== LOGIN MODAL =============== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            justify-content: center;
             align-items: center;
         }
 
-        .comments p {
-            margin: 10px 0;
+        .modal-overlay.active {
+            display: flex;
         }
 
-        .message-box textarea {
+        .modal {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal h2 {
+            color: #008B8B;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            padding: 0.8rem;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #008B8B;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-secondary {
+            background: #E0E0E0;
+            color: #333;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #CCCCCC;
+        }
+
+        /* =============== DETAIL MODAL =============== */
+        .detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2500;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .detail-modal.active {
+            display: flex;
+        }
+
+        .detail-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #E0E0E0;
+        }
+
+        .detail-icon {
+            font-size: 4rem;
+        }
+
+        .detail-info h2 {
+            color: #008B8B;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-info p {
+            color: #666;
+        }
+
+        .detail-body {
+            margin-bottom: 2rem;
+        }
+
+        .detail-body h3 {
+            color: #008B8B;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        .detail-body p {
+            color: #333;
+            line-height: 1.8;
+            margin: 0.5rem 0;
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        /* =============== SECTION HEADERS =============== */
+        .section-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-header h2 {
+            color: #008B8B;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* =============== FEEDBACK SECTION =============== */
+        .feedback-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .feedback-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-height: 120px;
             resize: vertical;
+            font-family: inherit;
         }
 
-        .message-box button {
-            background-color: #008080;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .feedback-form textarea:focus {
+            outline: none;
+            border-color: #008B8B;
         }
 
-        .message-box button:hover {
-            background-color: #006666;
+        .feedback-list {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .feedback-item {
+            padding: 1.5rem;
+            border-left: 4px solid #008B8B;
+            background: #F0F8FF;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+
+        .feedback-item .author {
+            font-weight: 600;
+            color: #008B8B;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-item .message {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .feedback-item .date {
+            color: #999;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* =============== RESPONSIVE DESIGN =============== */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .welcome-section h1 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <!-- Header Section -->
+    <!-- =============== HEADER =============== -->
     <header>
-        <div class="logo-container">
-            <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\HD-wallpaper-harry-potter-books-harry-potter.jpg" alt="Logo" class="logo" width="50">
-            <div class="site-name">Alumni Association</div>
-        </div>
-        <div class="nav-icon" onclick="toggleNavMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo">AA</div>
+                <div class="site-title">
+                    <h1>Alumni Association Portal</h1>
+                    <p>Connecting Past, Present & Future</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="login-btn" onclick="showLogin()">Login / Register</button>
+            </div>
         </div>
     </header>
-    <a href="#" onclick="showLogin(); return false;">Login</a>
-    <!-- Navigation Menu -->
-    <div class="nav-menu" id="navMenu">
-        <a href="#" onclick="navigate('masters')">Masters</a>
-        <a href="#" onclick="navigate('jobs')">Jobs</a>
-        <a href="#" onclick="navigate('events')">Events</a>
-        <a href="#" onclick="navigate('mentorship')">Mentorship</a>
-        <a href="#" onclick="navigate('feedback')">Feedback</a>
-        <a href="#" onclick="navigate('achievements')">Alumni Achievements</a>
-        <a href="#" onclick="navigate('resume')">Resume Templates</a>
-    </div>
 
-    <!-- Content Section -->
-    <div class="content" id="content">
-        <!-- Dynamic content will be loaded here based on selection -->
-    </div>
-
-    <!-- Home Page Section -->
-    <div class="home-page" id="homePage" style="display: none;">
-        <h2 style="margin-bottom: 40px;">Welcome to the Alumni Association Portal</h2>
-        <div class="button-container">
-            <button class="button" onclick="navigate('masters')">Masters</button>
-            <button class="button" onclick="navigate('jobs')">Jobs</button>
-            <button class="button" onclick="navigate('events')">Events</button>
-            <button class="button" onclick="navigate('mentorship')">Mentorship</button>
-            <button class="button" onclick="navigate('feedback')">Feedback</button>
-            <button class="button" onclick="navigate('achievements')">Alumni Achievements</button>
-            <button class="button" onclick="navigate('resume')">Resume Templates</button>
+    <!-- =============== NAVIGATION =============== -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-link active" onclick="navigate('home')">🏠 Home</a>
+            <a href="#" class="nav-link" onclick="navigate('profiles')">👥 Alumni Profiles</a>
+            <a href="#" class="nav-link" onclick="navigate('jobs')">💼 Job Listings</a>
+            <a href="#" class="nav-link" onclick="navigate('events')">🎉 Events</a>
+            <a href="#" class="nav-link" onclick="navigate('achievements')">🏆 Achievements</a>
+            <a href="#" class="nav-link" onclick="navigate('mentorship')">🧠 Mentorship</a>
+            <a href="#" class="nav-link" onclick="navigate('resources')">📚 Resources</a>
+            <a href="#" class="nav-link" onclick="navigate('feedback')">💬 Feedback</a>
         </div>
-    </div>
+    </nav>
 
-    <!-- Masters Section -->
-    <div class="section" id="masters" style="display: none;">
-        <h2>Masters Programs</h2>
-        <div class="filter">
-            <label for="program">Select Program:</label>
-            <select id="program">
-                <option value="all">All Programs</option>
-                <option value="engineering">Engineering</option>
-                <option value="medicine">Medicine</option>
-                <option value="science">Science</option>
-                <option value="humanities">Humanities</option>
-                <option value="business">Business</option>
-                <option value="law">Law</option>
-                <option value="art">Art</option>
-                <option value="architecture">Architecture</option>
-            </select>
-     
-        </div>
-        <div class="profiles">
-            <!-- Sample Profiles -->
-            <div class="profile-card">
-                <img src="profile-pic1.jpg" alt="Profile 1">
-                <h3>John Doe</h3>
-                <p>Engineering</p>
-		
+    <!-- =============== MAIN CONTAINER =============== -->
+    <div class="container">
+        
+        <!-- =============== HOME SECTION =============== -->
+        <section id="home" class="section active">
+            <div class="welcome-section">
+                <h1>🎓 Welcome to Alumni Association Portal</h1>
+                <p>Bridging the gap between students, alumni, and the institution. Discover opportunities, connect with mentors, and stay updated with events.</p>
             </div>
 
-            <div class="profile-card">
-                <img src="profile-pic2.jpg" alt="Profile 2">
-                <h3>Jane Smith</h3>
-                <p>Medicine</p> 
+            <div class="feature-grid">
+                <div class="feature-card" onclick="navigate('profiles')">
+                    <div class="icon">👥</div>
+                    <h3>Alumni Directory</h3>
+                    <p>Browse and connect with alumni across different streams and batches</p>
+                </div>
+
+                <div class="feature-card" onclick="navigate('jobs')">
+                    <div class="icon">💼</div>
+                    <h3>Career Opportunities</h3>
+                    <p>Explore job listings posted by alumni and partner companies</p>
+                </div>
+
+                <div class="feature-card" onclick="navigate('events')">
+                    <div class="icon">🎉</div>
+                    <h3>Events & Meetups</h3>
+                    <p>Stay updated with upcoming alumni events and gatherings</p>
+                </div>
+
+                <div class="feature-card" onclick="navigate('achievements')">
+                    <div class="icon">🏆</div>
+                    <h3>Alumni Achievements</h3>
+                    <p>Celebrate success stories in sports, academics, and social service</p>
+                </div>
+
+                <div class="feature-card" onclick="navigate('mentorship')">
+                    <div class="icon">🧠</div>
+                    <h3>Mentorship Program</h3>
+                    <p>Get guidance from experienced alumni mentors</p>
+                </div>
+
+                <div class="feature-card" onclick="navigate('resources')">
+                    <div class="icon">📚</div>
+                    <h3>Career Resources</h3>
+                    <p>Access resume templates and career development tools</p>
+                </div>
+
+                <div class="feature-card" onclick="navigate('feedback')">
+                    <div class="icon">💬</div>
+                    <h3>Feedback & Suggestions</h3>
+                    <p>Share your thoughts to help us improve the platform</p>
+                </div>
+
+                <div class="feature-card" onclick="showLogin()">
+                    <div class="icon">🔐</div>
+                    <h3>Join the Network</h3>
+                    <p>Login or register to access all features</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============== ALUMNI PROFILES SECTION =============== -->
+        <section id="profiles" class="section">
+            <div class="section-header">
+                <h2>👥 Alumni Directory</h2>
+                <p>Search and connect with alumni across different streams and graduation years</p>
             </div>
 
-        </div>
-    </div>
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label for="stream-filter">Stream:</label>
+                    <select id="stream-filter" onchange="filterProfiles()">
+                        <option value="all">All Streams</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="medicine">Medicine</option>
+                        <option value="science">Science</option>
+                        <option value="business">Business</option>
+                        <option value="humanities">Humanities</option>
+                        <option value="law">Law</option>
+                        <option value="arts">Arts</option>
+                    </select>
 
-    <!-- Jobs Section -->
-    <div class="section" id="jobs" style="display: none;">
-        <h2>Job Listings</h2>
-        <div class="filter">
-            <label for="job-category">Select Category:</label>
-            <select id="job-category">
-                <option value="all">All Categories</option>
-                <option value="engineering">Engineering</option>
-                <option value="medicine">Medicine</option>
-                <option value="science">Science</option>
-                <option value="humanities">Humanities</option>
-                <option value="business">Business</option>
-                <option value="law">Law</option>
-                <option value="art">Art</option>
-                <option value="architecture">Architecture</option>
-            </select>
-        </div>
-        <div class="profiles">
-            <!-- Sample Job Listings -->
-            <div class="profile-card">
-                <h3>Software Engineer</h3>
-                <p>Company A</p>
+                    <label for="year-filter">Year:</label>
+                    <select id="year-filter" onchange="filterProfiles()">
+                        <option value="all">All Years</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                    </select>
+
+                    <button class="btn-primary" onclick="filterProfiles()">Apply Filters</button>
+                </div>
             </div>
-            <div class="profile-card">
-                <h3>Research Scientist</h3>
-                <p>Company B</p>
+
+            <div id="profiles-grid" class="cards-grid">
+                <!-- Alumni profiles will be populated here -->
+            </div>
+        </section>
+
+        <!-- =============== JOB LISTINGS SECTION =============== -->
+        <section id="jobs" class="section">
+            <div class="section-header">
+                <h2>💼 Job Listings</h2>
+                <p>Explore career opportunities across various domains</p>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label for="job-domain-filter">Domain:</label>
+                    <select id="job-domain-filter" onchange="filterJobs()">
+                        <option value="all">All Domains</option>
+                        <option value="engineering">Engineering & Technology</option>
+                        <option value="medicine">Healthcare & Medicine</option>
+                        <option value="business">Business & Finance</option>
+                        <option value="education">Education</option>
+                        <option value="research">Research & Development</option>
+                        <option value="government">Government</option>
+                        <option value="nonprofit">Non-Profit</option>
+                    </select>
+
+                    <label for="job-type-filter">Type:</label>
+                    <select id="job-type-filter" onchange="filterJobs()">
+                        <option value="all">All Types</option>
+                        <option value="fulltime">Full-Time</option>
+                        <option value="parttime">Part-Time</option>
+                        <option value="internship">Internship</option>
+                        <option value="contract">Contract</option>
+                    </select>
+
+                    <button class="btn-primary" onclick="filterJobs()">Apply Filters</button>
+                </div>
+            </div>
+
+            <div id="jobs-grid" class="cards-grid">
+                <!-- Job listings will be populated here -->
+            </div>
+        </section>
+
+        <!-- =============== EVENTS SECTION =============== -->
+        <section id="events" class="section">
+            <div class="section-header">
+                <h2>🎉 Events Dashboard</h2>
+                <p>Stay updated with upcoming alumni events and gatherings</p>
+            </div>
+
+            <div id="events-grid" class="cards-grid">
+                <!-- Events will be populated here -->
+            </div>
+        </section>
+
+        <!-- =============== ACHIEVEMENTS SECTION =============== -->
+        <section id="achievements" class="section">
+            <div class="section-header">
+                <h2>🏆 Alumni Achievements</h2>
+                <p>Celebrating excellence across sports, academics, and social service</p>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label for="achievement-category-filter">Category:</label>
+                    <select id="achievement-category-filter" onchange="filterAchievements()">
+                        <option value="all">All Categories</option>
+                        <option value="sports">🏅 Sports</option>
+                        <option value="academics">📚 Academics</option>
+                        <option value="social">🤝 Social Service</option>
+                        <option value="research">🔬 Research Publications</option>
+                        <option value="entrepreneurship">💡 Entrepreneurship</option>
+                        <option value="arts">🎨 Arts & Culture</option>
+                    </select>
+
+                    <button class="btn-primary" onclick="filterAchievements()">Apply Filter</button>
+                </div>
+            </div>
+
+            <div id="achievements-grid" class="cards-grid">
+                <!-- Achievements will be populated here -->
+            </div>
+        </section>
+
+        <!-- =============== MENTORSHIP SECTION =============== -->
+        <section id="mentorship" class="section">
+            <div class="section-header">
+                <h2>🧠 Mentorship Program</h2>
+                <p>Connect with experienced alumni mentors for career guidance and personal development</p>
+            </div>
+
+            <div class="welcome-section">
+                <h3>Why Join Our Mentorship Program?</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon">🎯</div>
+                        <h3>Career Guidance</h3>
+                        <p>Get personalized advice on career paths and industry insights</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🤝</div>
+                        <h3>Networking</h3>
+                        <p>Build meaningful connections with successful alumni</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">📈</div>
+                        <h3>Skill Development</h3>
+                        <p>Learn practical skills from industry experts</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">💼</div>
+                        <h3>Job Referrals</h3>
+                        <p>Access job opportunities through mentor networks</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mentors-grid" class="cards-grid">
+                <!-- Mentors will be populated here -->
+            </div>
+        </section>
+
+        <!-- =============== RESOURCES SECTION =============== -->
+        <section id="resources" class="section">
+            <div class="section-header">
+                <h2>📚 Career Resources</h2>
+                <p>Professional development tools and templates for your career journey</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon">📄</div>
+                    <h3>Resume Templates</h3>
+                    <p>Professional resume templates for various industries</p>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('Download Modern Resume Template')">Download</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">✉️</div>
+                    <h3>Cover Letter Samples</h3>
+                    <p>Effective cover letter examples and writing guides</p>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('Download Cover Letter Samples')">Download</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">🎤</div>
+                    <h3>Interview Prep</h3>
+                    <p>Common interview questions and best practice answers</p>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('View Interview Guide')">View Guide</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">💻</div>
+                    <h3>LinkedIn Profile Tips</h3>
+                    <p>Optimize your professional online presence</p>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('View LinkedIn Tips')">View Tips</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">🎓</div>
+                    <h3>Higher Education</h3>
+                    <p>Resources for masters and PhD applications</p>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('View Education Resources')">View Resources</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">📊</div>
+                    <h3>Salary Negotiation</h3>
+                    <p>Tips and strategies for effective salary discussions</p>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('View Negotiation Guide')">View Guide</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============== FEEDBACK SECTION =============== -->
+        <section id="feedback" class="section">
+            <div class="section-header">
+                <h2>💬 Feedback & Suggestions</h2>
+                <p>Your feedback helps us improve the platform for everyone</p>
+            </div>
+
+            <div class="feedback-form">
+                <h3>Share Your Feedback</h3>
+                <textarea id="feedback-textarea" placeholder="Write your feedback, suggestions, or comments here..."></textarea>
+                <button class="btn-primary" style="margin-top: 1rem;" onclick="submitFeedback()">Submit Feedback</button>
+            </div>
+
+            <div class="feedback-list">
+                <h3>Recent Feedback</h3>
+                <div id="feedback-container">
+                    <!-- Feedback items will be populated here -->
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    </div>
+
+    <!-- =============== LOGIN MODAL =============== -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal">
+            <h2>🔐 Login / Register</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 1rem;">Use your GITAM email to access the portal</p>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="user-id">GITAM Email:</label>
+                    <input type="email" id="user-id" placeholder="yourname@gitam.in / @gitam.edu / @student.gitam.edu" required>
+                    <div id="email-error" class="error-message">Please use a valid GITAM email (@gitam.in, @gitam.edu, or @student.gitam.edu)</div>
+                </div>
+                <div class="form-group">
+                    <label for="user-password">Password:</label>
+                    <input type="password" id="user-password" placeholder="Enter your password" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="hideLogin()">Cancel</button>
+                    <button type="submit" class="btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- =============== DETAIL MODAL =============== -->
+    <div id="detail-modal" class="detail-modal">
+        <div class="detail-content">
+            <div id="detail-body-content"></div>
+        </div>
+    </div>
+
+    <!-- =============== MENTORSHIP REQUEST MODAL =============== -->
+    <div id="mentorship-modal" class="modal-overlay">
+        <div class="modal">
+            <h2>🤝 Request Mentorship</h2>
+            <div id="mentorship-content">
+                <div class="form-group">
+                    <label>Preview Your Introduction:</label>
+                    <textarea id="mentorship-message" rows="8" style="width: 100%; padding: 0.8rem; border: 2px solid #E0E0E0; border-radius: 8px; font-family: inherit;"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeMentorshipModal()">Cancel</button>
+                    <button type="button" class="btn-primary" onclick="sendMentorshipRequest()">Send Request</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Events Section -->
-    <div class="section" id="events" style="display: none;">
-        <h2>Upcoming Events</h2>
-        <div class="events">
-            <!-- Sample Events -->
-            <div class="event-card">
-                <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\Meet-UP.png" alt="Event 1">
-                <h3>Alumni Meet-Up</h3>
-                <p>Date: 2024-09-15</p>
-            </div>
-            <div class="event-card">
-                <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\Career-Fair.png" alt="Event 2">
-                <h3>Career Fair</h3>
-                <p>Date: 2024-10-01</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Mentorship Section -->
-    <div class="section" id="mentorship" style="display: none;">
-        <h2>Mentorship Program</h2>
-        <p>Details about mentorship programs and how to apply.</p>
-    </div>
-
-    <!-- Feedback Section -->
-    <div class="section" id="feedback" style="display: none;">
-        <h2>Feedback</h2>
-        <div class="form-container">
-            <textarea id="feedback-textbox" class="bio-textbox" rows="4" placeholder="Write your feedback here..."></textarea>
-            <button class="button" onclick="postFeedback()">Submit Feedback</button>
-        </div>
-        <div class="feedback-section">
-            <div id="feedback-comments" class="comments">
-                <!-- Feedback comments will be added here -->
-            </div>
-        </div>
-    </div>
-
-<!-- Achievements Section -->
-<div class="section" id="achievements" style="display: none;">
-    <h2>Alumni Achievements</h2>
-    <div class="achievements">
-        <!-- Award Winner Section -->
-        <div class="achievement-card">
-            <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\Achievements.png" alt="Achievement 1">
-            <h3>Award Winner</h3>
-            <p>Description of the award.</p>
-            <button class="button" onclick="showAwardDomains()">View Domains</button>
-        </div>
-        <!-- Published Research Section -->
-        <div class="achievement-card">
-            <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\Research Papers.png" alt="Achievement 2">
-            <h3>Published Research</h3>
-            <p>Details about the research.</p>
-            <button class="button" onclick="showPublishedResearch()">View Research</button>
-        </div>
-    </div>
-
-    <!-- Award Winner Domains Section -->
-<div id="awardDomains" class="section" style="display: flex; margin-top: 20px;">
-    <h3>Select a Domain</h3>
-    <div class="button-container">
-        <button class="button" onclick="viewDomain('sports.html')">Sports</button>
-        <button class="button" onclick="viewDomain('academics.html')">Academics</button>
-        <button class="button" onclick="viewDomain('socialService.html')">Social Service</button>
-        <button class="button" onclick="viewDomain('extraActivities.html')">Extra Activities</button>
-    </div>
-</div>
-
-<!-- Sports Category -->
-<div id="sports" class="section" style="display: flex;">
-    <h2>Sports Achievers</h2>
-    <div class="profiles">
-        <!-- Profile 1 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>John Doe</h3>
-            <p>Sport: Basketball</p>
-            <p>Year: 2023</p>
-            <p>Branch: Mechanical Engineering</p>
-        </div>
-        <!-- Profile 2 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Jane Smith</h3>
-            <p>Sport: Tennis</p>
-            <p>Year: 2022</p>
-            <p>Branch: Computer Science</p>
-        </div>
-        <!-- Profile 3 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Michael Lee</h3>
-            <p>Sport: Football</p>
-            <p>Year: 2021</p>
-            <p>Branch: Civil Engineering</p>
-        </div>
-        <!-- Profile 4 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Emily Davis</h3>
-            <p>Sport: Swimming</p>
-            <p>Year: 2023</p>
-            <p>Branch: Electrical Engineering</p>
-        </div>
-        <!-- Profile 5 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>David Wilson</h3>
-            <p>Sport: Badminton</p>
-            <p>Year: 2020</p>
-            <p>Branch: Mechanical Engineering</p>
-        </div>
-        <!-- Profile 6 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Anna Johnson</h3>
-            <p>Sport: Volleyball</p>
-            <p>Year: 2021</p>
-            <p>Branch: Chemical Engineering</p>
-        </div>
-        <!-- Profile 7 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Chris Brown</h3>
-            <p>Sport: Cricket</p>
-            <p>Year: 2022</p>
-            <p>Branch: Information Technology</p>
-        </div>
-        <!-- Profile 8 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Olivia Martinez</h3>
-            <p>Sport: Hockey</p>
-            <p>Year: 2020</p>
-            <p>Branch: Civil Engineering</p>
-        </div>
-        <!-- Profile 9 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>James Rodriguez</h3>
-            <p>Sport: Table Tennis</p>
-            <p>Year: 2019</p>
-            <p>Branch: Electronics Engineering</p>
-        </div>
-        <!-- Profile 10 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Isabella Lewis</h3>
-            <p>Sport: Athletics</p>
-            <p>Year: 2021</p>
-            <p>Branch: Mechanical Engineering</p>
-        </div>
-    </div>
-</div>
-
-<!-- Academics Category -->
-<div id="academics" class="section" style="display: flex;">
-    <h2>Academic Achievers</h2>
-    <div class="profiles">
-        <!-- Academic Profile 1 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Sarah Parker</h3>
-            <p>Course: B.Sc. Physics</p>
-            <p>Year: 2022</p>
-            <p>Achievement: Gold Medalist</p>
-        </div>
-        <!-- Academic Profile 2 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>William Turner</h3>
-            <p>Course: B.Tech. CSE</p>
-            <p>Year: 2021</p>
-            <p>Achievement: Dean's List</p>
-        </div>
-        <!-- Academic Profile 3 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Amy Lee</h3>
-            <p>Course: B.Com</p>
-            <p>Year: 2023</p>
-            <p>Achievement: Top Scorer</p>
-        </div>
-        <!-- Academic Profile 4 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Robert King</h3>
-            <p>Course: M.Sc. Chemistry</p>
-            <p>Year: 2020</p>
-            <p>Achievement: Best Research Paper</p>
-        </div>
-        <!-- Academic Profile 5 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Linda Scott</h3>
-            <p>Course: MBA</p>
-            <p>Year: 2019</p>
-            <p>Achievement: Best Project</p>
-        </div>
-    </div>
-</div>
-
-<!-- Social Service Category -->
-<div id="socialService" class="section" style="display: none;">
-    <h2>Social Service Achievers</h2>
-    <div class="profiles">
-        <!-- Social Service Profile 1 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Alice White</h3>
-            <p>Service: Environmental Awareness</p>
-            <p>Year: 2023</p>
-            <p>Achievement: Green Ambassador Award</p>
-        </div>
-        <!-- Social Service Profile 2 -->
-        <div class="profile-card">
-            <img src="path_to_blank_profile_image" alt="Profile">
-            <h3>Mark Evans</h3>
-            <p>Service: Community Education</p>
-            <p>Year: 2022</p>
-            <p>Achievement: Volunteer of the Year</p>
-        </div>
-    </div>
-</div>
-
-    <!-- Published Research Section -->
-    <div id="publishedResearch" class="section" style="display: none; margin-top: 20px;">
-        <h3>Published Research Papers</h3>
-        <div class="profiles">
-            <div class="profile-card">
-                <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\ResearchPaper1.png" alt="Research Paper 1">
-                <h4>John Doe</h4>
-                <p>Subject: Physics</p>
-                <p>Year: 2021</p>
-                <button class="button" onclick="viewResearchPaper('physics2021')">View Document</button>
-            </div>
-            <div class="profile-card">
-                <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\ResearchPaper2.png" alt="Research Paper 2">
-                <h4>Jane Smith</h4>
-                <p>Subject: Medicine</p>
-                <p>Year: 2020</p>
-                <button class="button" onclick="viewResearchPaper('medicine2020')">View Document</button>
-            </div>
-            <!-- Add more research papers here -->
-        </div>
-    </div>
-</div>
-
-<script>
-	function showProfileForm(index) {
-            // Function to show detailed profile information
-            const profiles = [
-                { img: 'alumni1.jpg', name: 'John Doe', bio: 'Alumni of Computer Science, specialized in AI/ML.', university: 'XYZ University', company: 'ABC Corp.' },
-                { img: 'alumni2.jpg', name: 'Jane Smith', bio: 'Graduated in Business Administration.', university: 'XYZ University', company: 'Global Finance Inc.' },
-                { img: 'alumni3.jpg', name: 'Michael Lee', bio: 'Engineering graduate with a focus on Cyber Security.', university: 'XYZ University', company: 'SecureTech.' }
-            ];
-    function showAwardDomains() {
-        document.getElementById('awardDomains').style.display = 'block';
-        document.getElementById('publishedResearch').style.display = 'none';
-    }
-
-    function showPublishedResearch() {
-        document.getElementById('publishedResearch').style.display = 'block';
-        document.getElementById('awardDomains').style.display = 'none';
-    }
-
-    function viewDomain(domain) {
-        alert('Displaying achievements in ' + domain);
-        // Here, add code to display the specific achievements or documents related to the selected domain.
-    }
-
-    function viewResearchPaper(paperId) {
-        alert('Opening document for ' + paperId);
-        // Here, add code to open the specific document related to the selected research paper.
-    }
-</script>
-
-    <!-- Resume Templates Section -->
-    <div class="section" id="resume" style="display: none;">
-        <h2>Resume Templates</h2>
-        <p>Downloadable resume templates for your use.</p>
-    </div>
-
-    <!-- Login Box -->
-    <div class="login-container" id="login-container" style="display: none;">
-        <h2>Login</h2>
-        <input type="text" id="userId" class="input-field" placeholder="User ID">
-        <input type="password" id="password" class="input-field" placeholder="Password">
-        <button class="login-button" onclick="performLogin()">Login</button>
-        <button class="login-button" onclick="hideLogin()">Cancel</button>
-    </div>
-
+    <!-- =============== JAVASCRIPT =============== -->
     <script>
-        function toggleNavMenu() {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.style.display = (navMenu.style.display === 'flex') ? 'none' : 'flex';
-        }
+        // =============== GLOBAL STATE ===============
+        let isLoggedIn = false;
+        let currentUser = null;
+        let pendingAction = null;
 
+        // =============== DATA STRUCTURES ===============
+        
+        // Expanded Alumni Profiles Data (2015-2025)
+        const alumniProfiles = [
+            { name: "Dr. Rajesh Kumar", stream: "engineering", year: "2015", company: "Google", position: "Senior Software Engineer", location: "Bangalore", email: "rajesh.kumar@gitam.in", bio: "Specialized in distributed systems and cloud architecture. Leading Google Cloud Platform initiatives.", research: "Machine Learning in Distributed Systems", icon: "👨‍💻" },
+            { name: "Dr. Priya Sharma", stream: "medicine", year: "2015", company: "AIIMS Delhi", position: "Chief Cardiologist", location: "Delhi", email: "priya.sharma@gitam.in", bio: "Pioneer in minimally invasive cardiac surgery. Published over 50 research papers.", research: "Novel Approaches in Cardiac Intervention", icon: "👩‍⚕️" },
+            { name: "Prof. Amit Patel", stream: "science", year: "2016", company: "IIT Bombay", position: "Research Professor", location: "Mumbai", email: "amit.patel@gitam.edu", bio: "Leading research in quantum computing and theoretical physics.", research: "Quantum Entanglement in Computing Systems", icon: "👨‍🔬" },
+            { name: "Anil Deshmukh", stream: "engineering", year: "2016", company: "Intel", position: "Chip Design Engineer", location: "USA", email: "anil.d@gitam.in", bio: "Working on next-generation processor architectures.", research: null, icon: "👨‍💻" },
+            { name: "Dr. Sneha Reddy", stream: "science", year: "2017", company: "ISRO", position: "Space Scientist", location: "Bangalore", email: "sneha.reddy@gitam.edu", bio: "Contributing to India's space missions and satellite technology.", research: "Advanced Propulsion Systems for Deep Space Exploration", icon: "👩‍🚀" },
+            { name: "Arjun Mehta", stream: "law", year: "2017", company: "Supreme Court", position: "Senior Advocate", location: "Delhi", email: "arjun.mehta@gitam.in", bio: "Specializing in constitutional law and human rights.", research: null, icon: "👨‍⚖️" },
+            { name: "Sarah Williams", stream: "business", year: "2018", company: "McKinsey & Company", position: "Management Consultant", location: "Mumbai", email: "sarah.w@gitam.edu", bio: "Helping Fortune 500 companies with digital transformation strategies.", research: null, icon: "👩‍💼" },
+            { name: "Neha Gupta", stream: "humanities", year: "2018", company: "United Nations", position: "Policy Analyst", location: "Geneva", email: "neha.gupta@gitam.in", bio: "Working on sustainable development goals and climate policy.", research: "Climate Policy and Economic Development in Emerging Nations", icon: "👩‍💼" },
+            { name: "Meera Joshi", stream: "business", year: "2018", company: "Goldman Sachs", position: "Investment Banker", location: "New York", email: "meera.joshi@gitam.edu", bio: "Managing high-value M&A deals in technology sector.", research: null, icon: "👩‍💼" },
+            { name: "Rahul Verma", stream: "engineering", year: "2019", company: "Microsoft", position: "Cloud Architect", location: "Hyderabad", email: "rahul.verma@gitam.in", bio: "Designing scalable cloud solutions for enterprise clients.", research: null, icon: "👨‍💻" },
+            { name: "Kavya Iyer", stream: "arts", year: "2019", company: "National Gallery", position: "Chief Curator", location: "Delhi", email: "kavya.iyer@gitam.edu", bio: "Curating contemporary Indian art exhibitions internationally.", research: "Digital Art and Cultural Preservation", icon: "👩‍🎨" },
+            { name: "Siddharth Nair", stream: "engineering", year: "2019", company: "SpaceX", position: "Aerospace Engineer", location: "USA", email: "siddharth.n@gitam.in", bio: "Working on reusable rocket technology and Mars mission planning.", research: null, icon: "👨‍🚀" },
+            { name: "Dr. Ananya Singh", stream: "medicine", year: "2020", company: "Apollo Hospitals", position: "Neurologist", location: "Chennai", email: "ananya.singh@gitam.edu", bio: "Specialist in neurodegenerative diseases and brain imaging.", research: "Early Detection of Alzheimer's Using AI", icon: "👩‍⚕️" },
+            { name: "Vikram Reddy", stream: "engineering", year: "2020", company: "Amazon", position: "Senior Data Scientist", location: "Bangalore", email: "vikram.reddy@gitam.in", bio: "Building recommendation systems and predictive analytics platforms.", research: null, icon: "👨‍💻" },
+            { name: "Divya Krishnan", stream: "arts", year: "2020", company: "Netflix", position: "Content Director", location: "Mumbai", email: "divya.k@gitam.edu", bio: "Leading regional content strategy for streaming platform.", research: null, icon: "👩‍🎬" },
+            { name: "Sanjay Krishnan", stream: "engineering", year: "2021", company: "Tesla", position: "AI Engineer", location: "USA", email: "sanjay.k@gitam.in", bio: "Developing autonomous driving algorithms and computer vision systems.", research: "Deep Learning for Real-time Object Detection", icon: "👨‍💻" },
+            { name: "Priyanka Menon", stream: "science", year: "2021", company: "Pfizer", position: "Research Scientist", location: "Pune", email: "priyanka.m@gitam.edu", bio: "Working on vaccine development and immunology research.", research: "mRNA Vaccine Technology and Future Applications", icon: "👩‍🔬" },
+            { name: "Aditya Sharma", stream: "engineering", year: "2021", company: "Apple", position: "iOS Developer", location: "Bangalore", email: "aditya.sharma@gitam.in", bio: "Building next-generation mobile experiences and AR applications.", research: null, icon: "👨‍💻" },
+            { name: "Rohan Kapoor", stream: "business", year: "2022", company: "Startup Founder", position: "CEO - EdTech", location: "Bangalore", email: "rohan.kapoor@gitam.edu", bio: "Building AI-powered personalized learning platform for students.", research: null, icon: "👨‍💼" },
+            { name: "Anjali Desai", stream: "engineering", year: "2022", company: "Meta", position: "Software Engineer", location: "Hyderabad", email: "anjali.desai@gitam.in", bio: "Working on VR/AR platforms and metaverse infrastructure.", research: null, icon: "👩‍💻" },
+            { name: "Karthik Menon", stream: "humanities", year: "2022", company: "World Bank", position: "Economic Analyst", location: "Washington DC", email: "karthik.menon@gitam.edu", bio: "Analyzing economic development strategies for developing nations.", research: "Fintech and Financial Inclusion in Rural India", icon: "👨‍💼" },
+            { name: "Ishita Roy", stream: "medicine", year: "2023", company: "Johns Hopkins", position: "Resident Doctor", location: "USA", email: "ishita.roy@student.gitam.edu", bio: "Specializing in pediatric oncology and cancer research.", research: "Targeted Therapy in Childhood Cancers", icon: "👩‍⚕️" },
+            { name: "Varun Malhotra", stream: "engineering", year: "2023", company: "NVIDIA", position: "GPU Engineer", location: "Pune", email: "varun.m@student.gitam.edu", bio: "Developing next-gen graphics processors for AI workloads.", research: null, icon: "👨‍💻" },
+            { name: "Nisha Agarwal", stream: "science", year: "2023", company: "MIT", position: "PhD Candidate", location: "USA", email: "nisha.agarwal@student.gitam.edu", bio: "Researching renewable energy and sustainable materials.", research: "Perovskite Solar Cells: Efficiency and Stability", icon: "👩‍🔬" },
+            { name: "Akash Verma", stream: "engineering", year: "2024", company: "Adobe", position: "ML Engineer", location: "Bangalore", email: "akash.verma@student.gitam.edu", bio: "Building AI-powered creative tools and generative AI features.", research: null, icon: "👨‍💻" },
+            { name: "Pooja Reddy", stream: "business", year: "2024", company: "Deloitte", position: "Business Analyst", location: "Mumbai", email: "pooja.reddy@student.gitam.edu", bio: "Providing strategic consulting for digital transformation projects.", research: null, icon: "👩‍💼" },
+            { name: "Vivek Singh", stream: "engineering", year: "2024", company: "IBM", position: "Blockchain Developer", location: "Bangalore", email: "vivek.singh@student.gitam.edu", bio: "Implementing blockchain solutions for supply chain and finance.", research: null, icon: "👨‍💻" },
+            { name: "Shreya Patel", stream: "science", year: "2025", company: "Stanford", position: "Graduate Student", location: "USA", email: "shreya.patel@student.gitam.edu", bio: "Pursuing masters in Computational Biology and Bioinformatics.", research: "CRISPR Gene Editing: Applications in Disease Treatment", icon: "👩‍🔬" },
+            { name: "Ravi Kumar", stream: "engineering", year: "2025", company: "Infosys", position: "Software Developer", location: "Hyderabad", email: "ravi.kumar@student.gitam.edu", bio: "Working on enterprise software solutions and cloud migration.", research: null, icon: "👨‍💻" },
+            { name: "Aditi Sharma", stream: "arts", year: "2025", company: "Freelance", position: "UX Designer", location: "Bangalore", email: "aditi.sharma@student.gitam.edu", bio: "Creating user-centered designs for mobile and web applications.", research: null, icon: "👩‍🎨" }
+        ];
+
+        // Sample Job Listings Data
+        const jobListings = [
+            { title: "Senior Software Engineer", company: "Tech Corp", domain: "engineering", type: "fulltime", location: "Bangalore", salary: "₹25-35 LPA", icon: "💻" },
+            { title: "Medical Officer", company: "City Hospital", domain: "medicine", type: "fulltime", location: "Mumbai", salary: "₹15-20 LPA", icon: "🏥" },
+            { title: "Financial Analyst", company: "Finance Pro", domain: "business", type: "fulltime", location: "Delhi", salary: "₹12-18 LPA", icon: "💰" },
+            { title: "Research Intern", company: "Science Lab", domain: "research", type: "internship", location: "Pune", salary: "₹30k/month", icon: "🔬" },
+            { title: "Data Scientist", company: "Analytics Inc", domain: "engineering", type: "fulltime", location: "Hyderabad", salary: "₹20-30 LPA", icon: "📊" },
+            { title: "Product Manager", company: "Startup XYZ", domain: "business", type: "fulltime", location: "Bangalore", salary: "₹18-25 LPA", icon: "📱" },
+            { title: "Civil Engineer", company: "Construction Co", domain: "engineering", type: "contract", location: "Chennai", salary: "₹10-15 LPA", icon: "🏗️" },
+            { title: "Teacher", company: "International School", domain: "education", type: "fulltime", location: "Kolkata", salary: "₹8-12 LPA", icon: "👨‍🏫" },
+            { title: "NGO Coordinator", company: "Help Foundation", domain: "nonprofit", type: "fulltime", location: "Multiple", salary: "₹6-10 LPA", icon: "🤝" },
+            { title: "Government Officer", company: "Public Service", domain: "government", type: "fulltime", location: "Various", salary: "₹8-15 LPA", icon: "🏛️" }
+        ];
+
+        // Sample Events Data
+        const events = [
+            { title: "Annual Alumni Meet 2026", date: "2026-03-15", location: "Campus Auditorium", description: "Join us for networking and nostalgia", icon: "🎓" },
+            { title: "Tech Career Fair", date: "2026-04-20", location: "Convention Center", description: "Explore opportunities with top companies", icon: "💼" },
+            { title: "Sports Tournament", date: "2026-05-10", location: "University Stadium", description: "Alumni vs Current Students", icon: "⚽" },
+            { title: "Entrepreneurship Workshop", date: "2026-06-05", location: "Innovation Hub", description: "Learn from successful alumni founders", icon: "💡" },
+            { title: "Cultural Evening", date: "2026-07-12", location: "Open Air Theater", description: "Celebrate art, music, and culture", icon: "🎭" },
+            { title: "Healthcare Seminar", date: "2026-08-18", location: "Medical College", description: "Latest advances in healthcare", icon: "🏥" }
+        ];
+
+        // Sample Achievements Data
+        const achievements = [
+            { name: "Aditya Sharma", category: "sports", achievement: "Olympic Bronze Medalist", field: "Swimming", year: "2024", icon: "🏊" },
+            { name: "Dr. Sneha Reddy", category: "academics", achievement: "Nobel Prize Nominee", field: "Physics", year: "2025", icon: "🏆" },
+            { name: "Ravi Kumar", category: "social", achievement: "Community Hero Award", field: "Rural Education", year: "2024", icon: "🤝" },
+            { name: "Priyanka Nair", category: "sports", achievement: "National Cricket Captain", field: "Cricket", year: "2023", icon: "🏏" },
+            { name: "Prof. Suresh Iyer", category: "research", achievement: "Published in Nature", field: "Biotechnology", year: "2025", icon: "📚" },
+            { name: "Anjali Desai", category: "entrepreneurship", achievement: "Forbes 30 Under 30", field: "Tech Startup", year: "2024", icon: "💼" },
+            { name: "Karthik Menon", category: "sports", achievement: "Chess Grandmaster", field: "Chess", year: "2025", icon: "♟️" },
+            { name: "Dr. Lakshmi Pillai", category: "academics", achievement: "IIT Best Researcher", field: "AI/ML", year: "2024", icon: "🎓" },
+            { name: "Vivek Singh", category: "social", achievement: "Environmental Champion", field: "Climate Action", year: "2025", icon: "🌱" },
+            { name: "Divya Krishnan", category: "arts", achievement: "National Film Award", field: "Documentary", year: "2024", icon: "🎬" }
+        ];
+
+        // Sample Mentors Data
+        const mentors = [
+            { name: "Rajesh Khanna", expertise: "Software Development", company: "Google", experience: "15 years", icon: "👨‍💻" },
+            { name: "Pooja Mehta", expertise: "Medical Research", company: "WHO", experience: "12 years", icon: "👩‍⚕️" },
+            { name: "Arjun Kapoor", expertise: "Investment Banking", company: "JP Morgan", experience: "10 years", icon: "👨‍💼" },
+            { name: "Nisha Verma", expertise: "Data Science", company: "Amazon", experience: "8 years", icon: "👩‍💻" },
+            { name: "Siddharth Rao", expertise: "Entrepreneurship", company: "Own Startup", experience: "14 years", icon: "👨‍💼" },
+            { name: "Kavita Joshi", expertise: "Law & Policy", company: "Supreme Court", experience: "18 years", icon: "👩‍⚖️" }
+        ];
+
+        // Sample Feedback Data
+        let feedbackData = [
+            { author: "Alumni 2020", message: "This platform is amazing! Helped me connect with batchmates.", date: "2026-01-15" },
+            { author: "Student", message: "Found a great mentorship opportunity through this portal.", date: "2026-01-20" },
+            { author: "Alumni 2018", message: "The job listings section is very useful. Got referrals!", date: "2026-02-01" }
+        ];
+
+        // =============== NAVIGATION FUNCTIONS ===============
+        
         function navigate(sectionId) {
-            const sections = ['homePage', 'masters', 'jobs', 'events', 'mentorship', 'feedback', 'achievements', 'resume'];
-            sections.forEach(id => {
-                const section = document.getElementById(id);
-                if (section) {
-                    section.style.display = (id === sectionId) ? 'block' : 'none';
-                }
-            });
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Update nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Load content based on section
+            switch(sectionId) {
+                case 'profiles':
+                    loadProfiles();
+                    break;
+                case 'jobs':
+                    loadJobs();
+                    break;
+                case 'events':
+                    loadEvents();
+                    break;
+                case 'achievements':
+                    loadAchievements();
+                    break;
+                case 'mentorship':
+                    loadMentors();
+                    break;
+                case 'feedback':
+                    loadFeedback();
+                    break;
+            }
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // =============== LOGIN FUNCTIONS ===============
+        
         function showLogin() {
-            // Check if the login container already exists
-            if (document.querySelector('.login-container')) {
-                document.getElementById('login-container').style.display = 'flex';
-                return; // Exit if already present
-            }
-
-            const loginContainer = document.createElement('div');
-            loginContainer.className = 'login-container';
-            loginContainer.id = 'login-container';
-            loginContainer.innerHTML = `
-                <h2>Login</h2>
-                <input type="text" id="userId" class="input-field" placeholder="User ID">
-                <input type="password" id="password" class="input-field" placeholder="Password">
-                <button class="login-button" onclick="performLogin()">Login</button>
-                <button class="login-button" onclick="hideLogin()">Cancel</button>
-            `;
-            document.body.appendChild(loginContainer);
-            document.getElementById('login-container').style.display = 'flex';
+            document.getElementById('login-modal').classList.add('active');
+            document.getElementById('email-error').classList.remove('active');
         }
 
         function hideLogin() {
-            const loginContainer = document.getElementById('login-container');
-            if (loginContainer) {
-                loginContainer.style.display = 'none';
-            }
+            document.getElementById('login-modal').classList.remove('active');
+            document.getElementById('user-id').value = '';
+            document.getElementById('user-password').value = '';
+            document.getElementById('email-error').classList.remove('active');
+            pendingAction = null;
         }
 
-        function performLogin() {
-            const validUserIds = ['2023001234', '2023001533', '2023001354', '2023003987'];
-            const validPassword = 'Gitam';
+        function validateGitamEmail(email) {
+            // Regex pattern for GITAM email domains
+            const gitamPattern = /^[a-zA-Z0-9._%+-]+@(gitam\.in|gitam\.edu|student\.gitam\.edu)$/;
+            return gitamPattern.test(email);
+        }
 
-            const userId = document.getElementById('userId').value;
-            const password = document.getElementById('password').value;
-
-            if (validUserIds.includes(userId) && password === validPassword) {
+        function handleLogin(event) {
+            event.preventDefault();
+            const userEmail = document.getElementById('user-id').value;
+            const password = document.getElementById('user-password').value;
+            const errorMsg = document.getElementById('email-error');
+            
+            // Validate GITAM email format
+            if (!validateGitamEmail(userEmail)) {
+                errorMsg.classList.add('active');
+                return;
+            }
+            
+            errorMsg.classList.remove('active');
+            
+            // Simple validation (Demo purposes)
+            const validPassword = 'gitam123';
+            
+            if (password === validPassword) {
+                isLoggedIn = true;
+                currentUser = userEmail;
+                alert('✅ Login Successful! Welcome to Alumni Portal.');
                 hideLogin();
-                navigate('homePage');
+                
+                // Execute pending action if any
+                if (pendingAction) {
+                    pendingAction();
+                    pendingAction = null;
+                }
             } else {
-                alert('Invalid credentials, please try again.');
+                alert('❌ Invalid password. Please try again.\n\nDemo password: gitam123');
             }
         }
 
-        function postFeedback() {
-            const feedbackTextbox = document.getElementById('feedback-textbox');
-            const feedbackComments = document.getElementById('feedback-comments');
+        function checkLoginAndExecute(action) {
+            if (!isLoggedIn) {
+                pendingAction = action;
+                showLogin();
+                return false;
+            }
+            return true;
+        }
 
-            const newFeedback = feedbackTextbox.value.trim();
-            if (newFeedback) {
-                const newComment = document.createElement('p');
-                newComment.textContent = `New User: "${newFeedback}"`;
-                feedbackComments.appendChild(newComment);
-                feedbackTextbox.value = ''; // Clear the textbox after posting
-            } else {
-                alert('Please enter your feedback before posting.');
+        // =============== DATA LOADING FUNCTIONS ===============
+        
+        function loadProfiles() {
+            const container = document.getElementById('profiles-grid');
+            let html = '';
+            
+            alumniProfiles.forEach((profile, index) => {
+                html += `
+                    <div class="card" onclick="showProfileDetail(${index})">
+                        <div class="card-image">${profile.icon}</div>
+                        <div class="card-body">
+                            <h3>${profile.name}</h3>
+                            <p><strong>${profile.position}</strong></p>
+                            <p>${profile.company}</p>
+                            ${profile.research ? '<p style="color: #008B8B; font-size: 0.85rem;">📄 Research Published</p>' : ''}
+                            <span class="card-badge">${profile.stream}</span>
+                            <span class="card-badge">Batch ${profile.year}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function showProfileDetail(index) {
+            if (!checkLoginAndExecute(() => showProfileDetail(index))) return;
+            
+            const profile = alumniProfiles[index];
+            const modal = document.getElementById('detail-modal');
+            const content = document.getElementById('detail-body-content');
+            
+            let html = `
+                <div class="detail-header">
+                    <div class="detail-icon">${profile.icon}</div>
+                    <div class="detail-info">
+                        <h2>${profile.name}</h2>
+                        <p><strong>${profile.position}</strong> at ${profile.company}</p>
+                        <p>📍 ${profile.location} | 🎓 Batch of ${profile.year}</p>
+                    </div>
+                </div>
+                <div class="detail-body">
+                    <h3>About</h3>
+                    <p>${profile.bio}</p>
+                    
+                    <h3>Stream</h3>
+                    <p>${profile.stream.charAt(0).toUpperCase() + profile.stream.slice(1)}</p>
+                    
+                    ${profile.research ? `
+                        <h3>📚 Research Publication</h3>
+                        <p><strong>${profile.research}</strong></p>
+                        <p style="color: #666; font-size: 0.9rem;">For more details about this research, please contact the alumni directly.</p>
+                    ` : ''}
+                    
+                    <h3>Contact</h3>
+                    <p>✉️ ${profile.email}</p>
+                </div>
+                <div class="detail-actions">
+                    <button class="btn-secondary" onclick="closeDetailModal()">Close</button>
+                    <button class="btn-primary" onclick="requestConnection('${profile.name}', '${profile.email}')">Connect</button>
+                </div>
+            `;
+            
+            content.innerHTML = html;
+            modal.classList.add('active');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detail-modal').classList.remove('active');
+        }
+
+        function requestConnection(name, email) {
+            alert(`✅ Connection request sent to ${name}!\n\nYou can reach out at: ${email}`);
+            closeDetailModal();
+        }
+
+        function loadJobs() {
+            const container = document.getElementById('jobs-grid');
+            let html = '';
+            
+            jobListings.forEach((job, index) => {
+                html += `
+                    <div class="card" onclick="showJobDetail(${index})">
+                        <div class="card-image">${job.icon}</div>
+                        <div class="card-body">
+                            <h3>${job.title}</h3>
+                            <p><strong>${job.company}</strong></p>
+                            <p>📍 ${job.location}</p>
+                            <p>💰 ${job.salary}</p>
+                            <span class="card-badge">${job.type}</span>
+                            <span class="card-badge">${job.domain}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function showJobDetail(index) {
+            if (!checkLoginAndExecute(() => showJobDetail(index))) return;
+            
+            const job = jobListings[index];
+            alert(`📋 Job Details\n\nPosition: ${job.title}\nCompany: ${job.company}\nLocation: ${job.location}\nSalary: ${job.salary}\nType: ${job.type}\n\n✅ To apply, please login and contact the alumni network.`);
+        }
+
+        function loadEvents() {
+            const container = document.getElementById('events-grid');
+            let html = '';
+            
+            events.forEach((event, index) => {
+                html += `
+                    <div class="card" onclick="showEventDetail(${index})">
+                        <div class="card-image">${event.icon}</div>
+                        <div class="card-body">
+                            <h3>${event.title}</h3>
+                            <p><strong>📅 ${event.date}</strong></p>
+                            <p>📍 ${event.location}</p>
+                            <p>${event.description}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function showEventDetail(index) {
+            if (!checkLoginAndExecute(() => showEventDetail(index))) return;
+            
+            const event = events[index];
+            const registerConfirm = confirm(`🎉 ${event.title}\n\n📅 Date: ${event.date}\n📍 Location: ${event.location}\n\n${event.description}\n\nWould you like to register for this event?`);
+            
+            if (registerConfirm) {
+                alert('✅ Registration successful! You will receive confirmation email shortly.');
             }
         }
+
+        function loadAchievements() {
+            const container = document.getElementById('achievements-grid');
+            let html = '';
+            
+            achievements.forEach((achievement, index) => {
+                html += `
+                    <div class="card" onclick="showAchievementDetail(${index})">
+                        <div class="card-image">${achievement.icon}</div>
+                        <div class="card-body">
+                            <h3>${achievement.name}</h3>
+                            <p><strong>${achievement.achievement}</strong></p>
+                            <p>${achievement.field}</p>
+                            <p>Year: ${achievement.year}</p>
+                            <span class="card-badge">${achievement.category}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function showAchievementDetail(index) {
+            if (!checkLoginAndExecute(() => showAchievementDetail(index))) return;
+            
+            const achievement = achievements[index];
+            alert(`🏆 Achievement Details\n\nName: ${achievement.name}\nAchievement: ${achievement.achievement}\nField: ${achievement.field}\nYear: ${achievement.year}\nCategory: ${achievement.category}`);
+        }
+
+        function loadMentors() {
+            const container = document.getElementById('mentors-grid');
+            let html = '';
+            
+            mentors.forEach((mentor, index) => {
+                html += `
+                    <div class="card">
+                        <div class="card-image">${mentor.icon}</div>
+                        <div class="card-body">
+                            <h3>${mentor.name}</h3>
+                            <p><strong>${mentor.expertise}</strong></p>
+                            <p>${mentor.company}</p>
+                            <p>Experience: ${mentor.experience}</p>
+                            <button class="btn-primary" style="margin-top: 1rem;" onclick="event.stopPropagation(); requestMentorship(${index})">Request Mentorship</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function requestMentorship(mentorIndex) {
+            if (!checkLoginAndExecute(() => requestMentorship(mentorIndex))) return;
+            
+            const mentor = mentors[mentorIndex];
+            const modal = document.getElementById('mentorship-modal');
+            const messageBox = document.getElementById('mentorship-message');
+            
+            // Generate introduction message template
+            const userName = currentUser ? currentUser.split('@')[0].replace('.', ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : 'Student';
+            
+            const introMessage = `Dear ${mentor.name},
+
+I hope this message finds you well. My name is ${userName}, and I am reaching out through the GITAM Alumni Association Portal.
+
+I am deeply interested in ${mentor.expertise} and noticed your impressive background at ${mentor.company}. With your ${mentor.experience} of experience in the field, I believe your guidance would be invaluable to my career development.
+
+I would be honored if you could mentor me and share your insights on:
+- Industry best practices and trends
+- Career growth strategies
+- Technical skills development
+- Networking and professional development
+
+I am committed to making the most of this mentorship opportunity and would be flexible with your schedule for our interactions.
+
+Thank you for considering my request. I look forward to the possibility of learning from your experience.
+
+Best regards,
+${userName}
+${currentUser || 'yourname@gitam.edu'}`;
+            
+            messageBox.value = introMessage;
+            modal.classList.add('active');
+            
+            // Store mentor info for sending
+            window.currentMentorRequest = mentor;
+        }
+
+        function closeMentorshipModal() {
+            document.getElementById('mentorship-modal').classList.remove('active');
+            window.currentMentorRequest = null;
+        }
+
+        function sendMentorshipRequest() {
+            const message = document.getElementById('mentorship-message').value;
+            const mentor = window.currentMentorRequest;
+            
+            if (mentor && message.trim()) {
+                alert(`✅ Mentorship request sent to ${mentor.name}!\n\nYour introduction has been forwarded. You will receive a response at ${currentUser} within 3-5 business days.`);
+                closeMentorshipModal();
+            } else {
+                alert('⚠️ Please write an introduction message.');
+            }
+        }
+
+        function loadFeedback() {
+            const container = document.getElementById('feedback-container');
+            let html = '';
+            
+            feedbackData.forEach(feedback => {
+                html += `
+                    <div class="feedback-item">
+                        <div class="author">${feedback.author}</div>
+                        <div class="message">${feedback.message}</div>
+                        <div class="date">${feedback.date}</div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // =============== FILTER FUNCTIONS ===============
+        
+        function filterProfiles() {
+            const stream = document.getElementById('stream-filter').value;
+            const year = document.getElementById('year-filter').value;
+            
+            const container = document.getElementById('profiles-grid');
+            let filteredProfiles = alumniProfiles;
+            
+            if (stream !== 'all') {
+                filteredProfiles = filteredProfiles.filter(p => p.stream === stream);
+            }
+            
+            if (year !== 'all') {
+                filteredProfiles = filteredProfiles.filter(p => p.year === year);
+            }
+            
+            let html = '';
+            filteredProfiles.forEach((profile, index) => {
+                const originalIndex = alumniProfiles.indexOf(profile);
+                html += `
+                    <div class="card" onclick="showProfileDetail(${originalIndex})">
+                        <div class="card-image">${profile.icon}</div>
+                        <div class="card-body">
+                            <h3>${profile.name}</h3>
+                            <p><strong>${profile.position}</strong></p>
+                            <p>${profile.company}</p>
+                            ${profile.research ? '<p style="color: #008B8B; font-size: 0.85rem;">📄 Research Published</p>' : ''}
+                            <span class="card-badge">${profile.stream}</span>
+                            <span class="card-badge">Batch ${profile.year}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html || '<p>No profiles found matching the filters.</p>';
+        }
+
+        function filterJobs() {
+            const domain = document.getElementById('job-domain-filter').value;
+            const type = document.getElementById('job-type-filter').value;
+            
+            const container = document.getElementById('jobs-grid');
+            let filteredJobs = jobListings;
+            
+            if (domain !== 'all') {
+                filteredJobs = filteredJobs.filter(j => j.domain === domain);
+            }
+            
+            if (type !== 'all') {
+                filteredJobs = filteredJobs.filter(j => j.type === type);
+            }
+            
+            let html = '';
+            filteredJobs.forEach((job, index) => {
+                const originalIndex = jobListings.indexOf(job);
+                html += `
+                    <div class="card" onclick="showJobDetail(${originalIndex})">
+                        <div class="card-image">${job.icon}</div>
+                        <div class="card-body">
+                            <h3>${job.title}</h3>
+                            <p><strong>${job.company}</strong></p>
+                            <p>📍 ${job.location}</p>
+                            <p>💰 ${job.salary}</p>
+                            <span class="card-badge">${job.type}</span>
+                            <span class="card-badge">${job.domain}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html || '<p>No jobs found matching the filters.</p>';
+        }
+
+        function filterAchievements() {
+            const category = document.getElementById('achievement-category-filter').value;
+            
+            const container = document.getElementById('achievements-grid');
+            let filteredAchievements = achievements;
+            
+            if (category !== 'all') {
+                filteredAchievements = filteredAchievements.filter(a => a.category === category);
+            }
+            
+            let html = '';
+            filteredAchievements.forEach((achievement, index) => {
+                const originalIndex = achievements.indexOf(achievement);
+                html += `
+                    <div class="card" onclick="showAchievementDetail(${originalIndex})">
+                        <div class="card-image">${achievement.icon}</div>
+                        <div class="card-body">
+                            <h3>${achievement.name}</h3>
+                            <p><strong>${achievement.achievement}</strong></p>
+                            <p>${achievement.field}</p>
+                            <p>Year: ${achievement.year}</p>
+                            <span class="card-badge">${achievement.category}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html || '<p>No achievements found matching the filter.</p>';
+        }
+
+        // =============== FEEDBACK SUBMISSION ===============
+        
+        function submitFeedback() {
+            const textarea = document.getElementById('feedback-textarea');
+            const message = textarea.value.trim();
+            
+            if (message) {
+                const newFeedback = {
+                    author: 'Anonymous User',
+                    message: message,
+                    date: new Date().toISOString().split('T')[0]
+                };
+                
+                feedbackData.unshift(newFeedback);
+                loadFeedback();
+                textarea.value = '';
+                alert('✅ Thank you for your feedback!');
+            } else {
+                alert('⚠️ Please enter your feedback before submitting.');
+            }
+        }
+
+        // =============== INITIALIZE ON PAGE LOAD ===============
+        
+        window.onload = function() {
+            // Load default content
+            loadProfiles();
+            loadJobs();
+            loadEvents();
+            loadAchievements();
+            loadMentors();
+            loadFeedback();
+        };
     </script>
+
 </body>
 
 </html>
