@@ -5,604 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumni Association Portal - SIH1609</title>
-    <style>
-        /* =============== GLOBAL STYLES =============== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #AFEEEE 0%, #87CEEB 100%);
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        /* =============== HEADER & NAVIGATION =============== */
-        header {
-            background: #FFFFFF;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #008B8B, #20B2AA);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-
-        .site-title h1 {
-            font-size: 1.5rem;
-            color: #008B8B;
-            font-weight: 700;
-        }
-
-        .site-title p {
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .login-btn {
-            background: #008B8B;
-            color: white;
-            padding: 0.6rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .login-btn:hover {
-            background: #006666;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: #008B8B;
-            border-radius: 3px;
-            transition: 0.3s;
-        }
-
-        nav {
-            background: white;
-            padding: 0.5rem 2rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            color: #333;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            background: #AFEEEE;
-            color: #008B8B;
-        }
-
-        /* =============== MAIN CONTAINER =============== */
-        .container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* =============== HOME/WELCOME SECTION =============== */
-        .welcome-section {
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .welcome-section h1 {
-            color: #008B8B;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .welcome-section p {
-            color: #666;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .feature-card {
-            background: linear-gradient(135deg, #FFFFFF 0%, #F0F8FF 100%);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 139, 139, 0.2);
-        }
-
-        .feature-card .icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            color: #008B8B;
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-card p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        /* =============== FILTERS =============== */
-        .filter-section {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .filter-group label {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .filter-group select,
-        .filter-group input {
-            padding: 0.6rem 1rem;
-            border: 2px solid #E0E0E0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .filter-group select:focus,
-        .filter-group input:focus {
-            outline: none;
-            border-color: #008B8B;
-        }
-
-        .btn-primary {
-            background: #008B8B;
-            color: white;
-            padding: 0.6rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background: #006666;
-            transform: translateY(-2px);
-        }
-
-        /* =============== CARDS GRID =============== */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 24px rgba(0, 139, 139, 0.2);
-        }
-
-        .card-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #20B2AA, #008B8B);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 4rem;
-        }
-
-        .card-body {
-            padding: 1.5rem;
-        }
-
-        .card-body h3 {
-            color: #008B8B;
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .card-body p {
-            color: #666;
-            font-size: 0.95rem;
-            margin: 0.3rem 0;
-        }
-
-        .card-badge {
-            display: inline-block;
-            background: #E0F7FA;
-            color: #008B8B;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            margin: 0.5rem 0.5rem 0 0;
-        }
-
-        /* =============== LOGIN MODAL =============== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            max-width: 400px;
-            width: 90%;
-        }
-
-        .modal h2 {
-            color: #008B8B;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
-            font-weight: 600;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #E0E0E0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #008B8B;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .btn-secondary {
-            background: #E0E0E0;
-            color: #333;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            flex: 1;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: #CCCCCC;
-        }
-
-        /* =============== DETAIL MODAL =============== */
-        .detail-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 2500;
-            justify-content: center;
-            align-items: center;
-            overflow-y: auto;
-        }
-
-        .detail-modal.active {
-            display: flex;
-        }
-
-        .detail-content {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .detail-header {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid #E0E0E0;
-        }
-
-        .detail-icon {
-            font-size: 4rem;
-        }
-
-        .detail-info h2 {
-            color: #008B8B;
-            margin-bottom: 0.5rem;
-        }
-
-        .detail-info p {
-            color: #666;
-        }
-
-        .detail-body {
-            margin-bottom: 2rem;
-        }
-
-        .detail-body h3 {
-            color: #008B8B;
-            margin: 1.5rem 0 0.5rem 0;
-        }
-
-        .detail-body p {
-            color: #333;
-            line-height: 1.8;
-            margin: 0.5rem 0;
-        }
-
-        .detail-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .error-message {
-            color: #d32f2f;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        .error-message.active {
-            display: block;
-        }
-
-        /* =============== SECTION HEADERS =============== */
-        .section-header {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .section-header h2 {
-            color: #008B8B;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-
-        /* =============== FEEDBACK SECTION =============== */
-        .feedback-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .feedback-form textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #E0E0E0;
-            border-radius: 8px;
-            font-size: 1rem;
-            min-height: 120px;
-            resize: vertical;
-            font-family: inherit;
-        }
-
-        .feedback-form textarea:focus {
-            outline: none;
-            border-color: #008B8B;
-        }
-
-        .feedback-list {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .feedback-item {
-            padding: 1.5rem;
-            border-left: 4px solid #008B8B;
-            background: #F0F8FF;
-            margin-bottom: 1rem;
-            border-radius: 8px;
-        }
-
-        .feedback-item .author {
-            font-weight: 600;
-            color: #008B8B;
-            margin-bottom: 0.5rem;
-        }
-
-        .feedback-item .message {
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .feedback-item .date {
-            color: #999;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-        }
-
-        /* =============== RESPONSIVE DESIGN =============== */
-        @media (max-width: 768px) {
-            .header-container {
-                flex-wrap: wrap;
-            }
-
-            .nav-container {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .filter-group {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .welcome-section h1 {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -617,6 +21,7 @@
                 </div>
             </div>
             <div class="header-actions">
+                <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">🌙</button>
                 <button class="login-btn" onclick="showLogin()">Login / Register</button>
             </div>
         </div>
@@ -632,6 +37,8 @@
             <a href="#" class="nav-link" onclick="navigate('achievements')">🏆 Achievements</a>
             <a href="#" class="nav-link" onclick="navigate('mentorship')">🧠 Mentorship</a>
             <a href="#" class="nav-link" onclick="navigate('resources')">📚 Resources</a>
+            <a href="#" class="nav-link" onclick="navigate('network')">📊 Network Analytics</a>
+            <a href="#" class="nav-link" onclick="navigate('bookmarks')">⭐ My Bookmarks</a>
             <a href="#" class="nav-link" onclick="navigate('feedback')">💬 Feedback</a>
         </div>
     </nav>
@@ -704,6 +111,10 @@
                 <p>Search and connect with alumni across different streams and graduation years</p>
             </div>
 
+            <div class="search-section">
+                <input type="text" id="profile-search" placeholder="🔍 Search by name, company, or position..." oninput="searchProfiles()">
+            </div>
+
             <div class="filter-section">
                 <div class="filter-group">
                     <label for="stream-filter">Stream:</label>
@@ -721,6 +132,7 @@
                     <label for="year-filter">Year:</label>
                     <select id="year-filter" onchange="filterProfiles()">
                         <option value="all">All Years</option>
+                        <option value="2025">2025</option>
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
                         <option value="2022">2022</option>
@@ -872,68 +284,136 @@
                     <div class="icon">📄</div>
                     <h3>Resume Templates</h3>
                     <p>Professional resume templates for various industries</p>
-                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('Download Modern Resume Template')">Download</button>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="window.open('https://www.canva.com/resumes/templates/', '_blank')">Browse Templates</button>
                 </div>
 
                 <div class="feature-card">
                     <div class="icon">✉️</div>
                     <h3>Cover Letter Samples</h3>
                     <p>Effective cover letter examples and writing guides</p>
-                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('Download Cover Letter Samples')">Download</button>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="window.open('https://www.indeed.com/career-advice/cover-letter-samples', '_blank')">View Samples</button>
                 </div>
 
                 <div class="feature-card">
                     <div class="icon">🎤</div>
                     <h3>Interview Prep</h3>
                     <p>Common interview questions and best practice answers</p>
-                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('View Interview Guide')">View Guide</button>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="window.open('https://www.themuse.com/advice/interview-questions-and-answers', '_blank')">View Guide</button>
                 </div>
 
                 <div class="feature-card">
                     <div class="icon">💻</div>
                     <h3>LinkedIn Profile Tips</h3>
                     <p>Optimize your professional online presence</p>
-                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('View LinkedIn Tips')">View Tips</button>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="window.open('https://www.linkedin.com/business/talent/blog/product-tips/linkedin-profile-summaries-that-we-love-and-how-to-boost-your-own', '_blank')">View Tips</button>
                 </div>
 
                 <div class="feature-card">
                     <div class="icon">🎓</div>
                     <h3>Higher Education</h3>
                     <p>Resources for masters and PhD applications</p>
-                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('View Education Resources')">View Resources</button>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="window.open('https://www.topuniversities.com/student-info/admissions-advice', '_blank')">View Resources</button>
                 </div>
 
                 <div class="feature-card">
                     <div class="icon">📊</div>
                     <h3>Salary Negotiation</h3>
                     <p>Tips and strategies for effective salary discussions</p>
-                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('View Negotiation Guide')">View Guide</button>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="window.open('https://hbr.org/2014/04/15-rules-for-negotiating-a-job-offer', '_blank')">View Guide</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============== NETWORK ANALYTICS SECTION =============== -->
+        <section id="network" class="section">
+            <div class="section-header">
+                <h2>📊 Network Analytics</h2>
+                <p>Explore alumni network insights, influence metrics, and community detection</p>
+            </div>
+
+            <!-- Network Statistics Dashboard -->
+            <div class="network-stats-grid" id="network-stats"></div>
+
+            <!-- Key Influencers Section -->
+            <div class="section-header" style="margin-top: 2rem;">
+                <h2>🌟 Key Influencers</h2>
+                <p>Alumni with highest network centrality and influence scores</p>
+            </div>
+            <div class="cards-grid" id="influencers-grid"></div>
+
+            <!-- Community Detection Section -->
+            <div class="unified-section-box" style="margin-top: 2rem;">
+                <div class="box-header">
+                    <h2>👥 Community Clusters</h2>
+                    <p>Alumni grouped by stream and graduation year using community detection algorithms</p>
+                </div>
+                <div id="communities-container" class="box-content"></div>
+            </div>
+
+            <!-- Connection Path Finder -->
+            <div class="unified-section-box" style="margin-top: 2rem;">
+                <div class="box-header">
+                    <h2>🔗 Connection Path Finder</h2>
+                    <p>Find the shortest connection path between any two alumni</p>
+                </div>
+                <div class="box-content">
+                    <div class="filter-group" style="margin-bottom: 2rem;">
+                        <label>From Alumni:</label>
+                        <select id="path-start"></select>
+                        <label>To Alumni:</label>
+                        <select id="path-end"></select>
+                        <button class="btn-primary" onclick="findPath()">Find Path</button>
+                    </div>
+                    <div id="path-result" style="display: none;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============== BOOKMARKS SECTION =============== -->
+        <section id="bookmarks" class="section">
+            <div class="section-header">
+                <h2>⭐ My Bookmarks</h2>
+                <p>Your saved alumni profiles and job opportunities</p>
+            </div>
+
+            <div class="bookmarks-container">
+                <div class="bookmark-category">
+                    <h3>📌 Saved Profiles (<span id="bookmark-profile-count">0</span>)</h3>
+                    <div id="bookmarked-profiles" class="cards-grid">
+                        <p class="empty-message">No bookmarked profiles yet. Click the ⭐ icon on any profile to save it here.</p>
+                    </div>
+                </div>
+
+                <div class="bookmark-category">
+                    <h3>💼 Saved Jobs (<span id="bookmark-job-count">0</span>)</h3>
+                    <div id="bookmarked-jobs" class="cards-grid">
+                        <p class="empty-message">No bookmarked jobs yet. Click the ⭐ icon on any job to save it here.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- =============== FEEDBACK SECTION =============== -->
         <section id="feedback" class="section">
-            <div class="section-header">
-                <h2>💬 Feedback & Suggestions</h2>
-                <p>Your feedback helps us improve the platform for everyone</p>
-            </div>
-
-            <div class="feedback-form">
-                <h3>Share Your Feedback</h3>
-                <textarea id="feedback-textarea" placeholder="Write your feedback, suggestions, or comments here..."></textarea>
-                <button class="btn-primary" style="margin-top: 1rem;" onclick="submitFeedback()">Submit Feedback</button>
-            </div>
-
-            <div class="feedback-list">
-                <h3>Recent Feedback</h3>
-                <div id="feedback-container">
-                    <!-- Feedback items will be populated here -->
+            <div class="unified-section-box">
+                <div class="box-header">
+                    <h2>💬 Feedback & Suggestions</h2>
+                    <p>Your feedback helps us improve the platform for everyone</p>
+                </div>
+                <div class="box-content">
+                    <h3 style="color: #028090; margin-bottom: 1rem;">Share Your Feedback</h3>
+                    <textarea id="feedback-textarea" placeholder="Write your feedback, suggestions, or comments here..." style="width: 100%; padding: 1rem; border: 2px solid #E0E0E0; border-radius: 8px; font-size: 1rem; min-height: 120px; resize: vertical; font-family: inherit; margin-bottom: 1rem;"></textarea>
+                    <button class="btn-primary" onclick="submitFeedback()">Submit Feedback</button>
+                    
+                    <hr style="margin: 2rem 0; border: none; border-top: 2px solid #E0E0E0;">
+                    
+                    <h3 style="color: #028090; margin-bottom: 1rem;">Recent Feedback</h3>
+                    <div id="feedback-container">
+                        <!-- Feedback items will be populated here -->
+                    </div>
                 </div>
             </div>
         </section>
-
-    </div>
 
     </div>
 
@@ -945,7 +425,8 @@
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label for="user-id">GITAM Email:</label>
-                    <input type="email" id="user-id" placeholder="yourname@gitam.in / @gitam.edu / @student.gitam.edu" required>
+                    <input type="email" id="user-id" placeholder="Enter your GITAM mail id" required>
+                    <p style="color: #999; font-size: 0.85rem; margin-top: 0.5rem;">Format: @gitam.in / @gitam.edu / @student.gitam.edu</p>
                     <div id="email-error" class="error-message">Please use a valid GITAM email (@gitam.in, @gitam.edu, or @student.gitam.edu)</div>
                 </div>
                 <div class="form-group">
@@ -985,608 +466,7 @@
     </div>
 
     <!-- =============== JAVASCRIPT =============== -->
-    <script>
-        // =============== GLOBAL STATE ===============
-        let isLoggedIn = false;
-        let currentUser = null;
-        let pendingAction = null;
-
-        // =============== DATA STRUCTURES ===============
-        
-        // Expanded Alumni Profiles Data (2015-2025)
-        const alumniProfiles = [
-            { name: "Dr. Rajesh Kumar", stream: "engineering", year: "2015", company: "Google", position: "Senior Software Engineer", location: "Bangalore", email: "rajesh.kumar@gitam.in", bio: "Specialized in distributed systems and cloud architecture. Leading Google Cloud Platform initiatives.", research: "Machine Learning in Distributed Systems", icon: "👨‍💻" },
-            { name: "Dr. Priya Sharma", stream: "medicine", year: "2015", company: "AIIMS Delhi", position: "Chief Cardiologist", location: "Delhi", email: "priya.sharma@gitam.in", bio: "Pioneer in minimally invasive cardiac surgery. Published over 50 research papers.", research: "Novel Approaches in Cardiac Intervention", icon: "👩‍⚕️" },
-            { name: "Prof. Amit Patel", stream: "science", year: "2016", company: "IIT Bombay", position: "Research Professor", location: "Mumbai", email: "amit.patel@gitam.edu", bio: "Leading research in quantum computing and theoretical physics.", research: "Quantum Entanglement in Computing Systems", icon: "👨‍🔬" },
-            { name: "Anil Deshmukh", stream: "engineering", year: "2016", company: "Intel", position: "Chip Design Engineer", location: "USA", email: "anil.d@gitam.in", bio: "Working on next-generation processor architectures.", research: null, icon: "👨‍💻" },
-            { name: "Dr. Sneha Reddy", stream: "science", year: "2017", company: "ISRO", position: "Space Scientist", location: "Bangalore", email: "sneha.reddy@gitam.edu", bio: "Contributing to India's space missions and satellite technology.", research: "Advanced Propulsion Systems for Deep Space Exploration", icon: "👩‍🚀" },
-            { name: "Arjun Mehta", stream: "law", year: "2017", company: "Supreme Court", position: "Senior Advocate", location: "Delhi", email: "arjun.mehta@gitam.in", bio: "Specializing in constitutional law and human rights.", research: null, icon: "👨‍⚖️" },
-            { name: "Sarah Williams", stream: "business", year: "2018", company: "McKinsey & Company", position: "Management Consultant", location: "Mumbai", email: "sarah.w@gitam.edu", bio: "Helping Fortune 500 companies with digital transformation strategies.", research: null, icon: "👩‍💼" },
-            { name: "Neha Gupta", stream: "humanities", year: "2018", company: "United Nations", position: "Policy Analyst", location: "Geneva", email: "neha.gupta@gitam.in", bio: "Working on sustainable development goals and climate policy.", research: "Climate Policy and Economic Development in Emerging Nations", icon: "👩‍💼" },
-            { name: "Meera Joshi", stream: "business", year: "2018", company: "Goldman Sachs", position: "Investment Banker", location: "New York", email: "meera.joshi@gitam.edu", bio: "Managing high-value M&A deals in technology sector.", research: null, icon: "👩‍💼" },
-            { name: "Rahul Verma", stream: "engineering", year: "2019", company: "Microsoft", position: "Cloud Architect", location: "Hyderabad", email: "rahul.verma@gitam.in", bio: "Designing scalable cloud solutions for enterprise clients.", research: null, icon: "👨‍💻" },
-            { name: "Kavya Iyer", stream: "arts", year: "2019", company: "National Gallery", position: "Chief Curator", location: "Delhi", email: "kavya.iyer@gitam.edu", bio: "Curating contemporary Indian art exhibitions internationally.", research: "Digital Art and Cultural Preservation", icon: "👩‍🎨" },
-            { name: "Siddharth Nair", stream: "engineering", year: "2019", company: "SpaceX", position: "Aerospace Engineer", location: "USA", email: "siddharth.n@gitam.in", bio: "Working on reusable rocket technology and Mars mission planning.", research: null, icon: "👨‍🚀" },
-            { name: "Dr. Ananya Singh", stream: "medicine", year: "2020", company: "Apollo Hospitals", position: "Neurologist", location: "Chennai", email: "ananya.singh@gitam.edu", bio: "Specialist in neurodegenerative diseases and brain imaging.", research: "Early Detection of Alzheimer's Using AI", icon: "👩‍⚕️" },
-            { name: "Vikram Reddy", stream: "engineering", year: "2020", company: "Amazon", position: "Senior Data Scientist", location: "Bangalore", email: "vikram.reddy@gitam.in", bio: "Building recommendation systems and predictive analytics platforms.", research: null, icon: "👨‍💻" },
-            { name: "Divya Krishnan", stream: "arts", year: "2020", company: "Netflix", position: "Content Director", location: "Mumbai", email: "divya.k@gitam.edu", bio: "Leading regional content strategy for streaming platform.", research: null, icon: "👩‍🎬" },
-            { name: "Sanjay Krishnan", stream: "engineering", year: "2021", company: "Tesla", position: "AI Engineer", location: "USA", email: "sanjay.k@gitam.in", bio: "Developing autonomous driving algorithms and computer vision systems.", research: "Deep Learning for Real-time Object Detection", icon: "👨‍💻" },
-            { name: "Priyanka Menon", stream: "science", year: "2021", company: "Pfizer", position: "Research Scientist", location: "Pune", email: "priyanka.m@gitam.edu", bio: "Working on vaccine development and immunology research.", research: "mRNA Vaccine Technology and Future Applications", icon: "👩‍🔬" },
-            { name: "Aditya Sharma", stream: "engineering", year: "2021", company: "Apple", position: "iOS Developer", location: "Bangalore", email: "aditya.sharma@gitam.in", bio: "Building next-generation mobile experiences and AR applications.", research: null, icon: "👨‍💻" },
-            { name: "Rohan Kapoor", stream: "business", year: "2022", company: "Startup Founder", position: "CEO - EdTech", location: "Bangalore", email: "rohan.kapoor@gitam.edu", bio: "Building AI-powered personalized learning platform for students.", research: null, icon: "👨‍💼" },
-            { name: "Anjali Desai", stream: "engineering", year: "2022", company: "Meta", position: "Software Engineer", location: "Hyderabad", email: "anjali.desai@gitam.in", bio: "Working on VR/AR platforms and metaverse infrastructure.", research: null, icon: "👩‍💻" },
-            { name: "Karthik Menon", stream: "humanities", year: "2022", company: "World Bank", position: "Economic Analyst", location: "Washington DC", email: "karthik.menon@gitam.edu", bio: "Analyzing economic development strategies for developing nations.", research: "Fintech and Financial Inclusion in Rural India", icon: "👨‍💼" },
-            { name: "Ishita Roy", stream: "medicine", year: "2023", company: "Johns Hopkins", position: "Resident Doctor", location: "USA", email: "ishita.roy@student.gitam.edu", bio: "Specializing in pediatric oncology and cancer research.", research: "Targeted Therapy in Childhood Cancers", icon: "👩‍⚕️" },
-            { name: "Varun Malhotra", stream: "engineering", year: "2023", company: "NVIDIA", position: "GPU Engineer", location: "Pune", email: "varun.m@student.gitam.edu", bio: "Developing next-gen graphics processors for AI workloads.", research: null, icon: "👨‍💻" },
-            { name: "Nisha Agarwal", stream: "science", year: "2023", company: "MIT", position: "PhD Candidate", location: "USA", email: "nisha.agarwal@student.gitam.edu", bio: "Researching renewable energy and sustainable materials.", research: "Perovskite Solar Cells: Efficiency and Stability", icon: "👩‍🔬" },
-            { name: "Akash Verma", stream: "engineering", year: "2024", company: "Adobe", position: "ML Engineer", location: "Bangalore", email: "akash.verma@student.gitam.edu", bio: "Building AI-powered creative tools and generative AI features.", research: null, icon: "👨‍💻" },
-            { name: "Pooja Reddy", stream: "business", year: "2024", company: "Deloitte", position: "Business Analyst", location: "Mumbai", email: "pooja.reddy@student.gitam.edu", bio: "Providing strategic consulting for digital transformation projects.", research: null, icon: "👩‍💼" },
-            { name: "Vivek Singh", stream: "engineering", year: "2024", company: "IBM", position: "Blockchain Developer", location: "Bangalore", email: "vivek.singh@student.gitam.edu", bio: "Implementing blockchain solutions for supply chain and finance.", research: null, icon: "👨‍💻" },
-            { name: "Shreya Patel", stream: "science", year: "2025", company: "Stanford", position: "Graduate Student", location: "USA", email: "shreya.patel@student.gitam.edu", bio: "Pursuing masters in Computational Biology and Bioinformatics.", research: "CRISPR Gene Editing: Applications in Disease Treatment", icon: "👩‍🔬" },
-            { name: "Ravi Kumar", stream: "engineering", year: "2025", company: "Infosys", position: "Software Developer", location: "Hyderabad", email: "ravi.kumar@student.gitam.edu", bio: "Working on enterprise software solutions and cloud migration.", research: null, icon: "👨‍💻" },
-            { name: "Aditi Sharma", stream: "arts", year: "2025", company: "Freelance", position: "UX Designer", location: "Bangalore", email: "aditi.sharma@student.gitam.edu", bio: "Creating user-centered designs for mobile and web applications.", research: null, icon: "👩‍🎨" }
-        ];
-
-        // Sample Job Listings Data
-        const jobListings = [
-            { title: "Senior Software Engineer", company: "Tech Corp", domain: "engineering", type: "fulltime", location: "Bangalore", salary: "₹25-35 LPA", icon: "💻" },
-            { title: "Medical Officer", company: "City Hospital", domain: "medicine", type: "fulltime", location: "Mumbai", salary: "₹15-20 LPA", icon: "🏥" },
-            { title: "Financial Analyst", company: "Finance Pro", domain: "business", type: "fulltime", location: "Delhi", salary: "₹12-18 LPA", icon: "💰" },
-            { title: "Research Intern", company: "Science Lab", domain: "research", type: "internship", location: "Pune", salary: "₹30k/month", icon: "🔬" },
-            { title: "Data Scientist", company: "Analytics Inc", domain: "engineering", type: "fulltime", location: "Hyderabad", salary: "₹20-30 LPA", icon: "📊" },
-            { title: "Product Manager", company: "Startup XYZ", domain: "business", type: "fulltime", location: "Bangalore", salary: "₹18-25 LPA", icon: "📱" },
-            { title: "Civil Engineer", company: "Construction Co", domain: "engineering", type: "contract", location: "Chennai", salary: "₹10-15 LPA", icon: "🏗️" },
-            { title: "Teacher", company: "International School", domain: "education", type: "fulltime", location: "Kolkata", salary: "₹8-12 LPA", icon: "👨‍🏫" },
-            { title: "NGO Coordinator", company: "Help Foundation", domain: "nonprofit", type: "fulltime", location: "Multiple", salary: "₹6-10 LPA", icon: "🤝" },
-            { title: "Government Officer", company: "Public Service", domain: "government", type: "fulltime", location: "Various", salary: "₹8-15 LPA", icon: "🏛️" }
-        ];
-
-        // Sample Events Data
-        const events = [
-            { title: "Annual Alumni Meet 2026", date: "2026-03-15", location: "Campus Auditorium", description: "Join us for networking and nostalgia", icon: "🎓" },
-            { title: "Tech Career Fair", date: "2026-04-20", location: "Convention Center", description: "Explore opportunities with top companies", icon: "💼" },
-            { title: "Sports Tournament", date: "2026-05-10", location: "University Stadium", description: "Alumni vs Current Students", icon: "⚽" },
-            { title: "Entrepreneurship Workshop", date: "2026-06-05", location: "Innovation Hub", description: "Learn from successful alumni founders", icon: "💡" },
-            { title: "Cultural Evening", date: "2026-07-12", location: "Open Air Theater", description: "Celebrate art, music, and culture", icon: "🎭" },
-            { title: "Healthcare Seminar", date: "2026-08-18", location: "Medical College", description: "Latest advances in healthcare", icon: "🏥" }
-        ];
-
-        // Sample Achievements Data
-        const achievements = [
-            { name: "Aditya Sharma", category: "sports", achievement: "Olympic Bronze Medalist", field: "Swimming", year: "2024", icon: "🏊" },
-            { name: "Dr. Sneha Reddy", category: "academics", achievement: "Nobel Prize Nominee", field: "Physics", year: "2025", icon: "🏆" },
-            { name: "Ravi Kumar", category: "social", achievement: "Community Hero Award", field: "Rural Education", year: "2024", icon: "🤝" },
-            { name: "Priyanka Nair", category: "sports", achievement: "National Cricket Captain", field: "Cricket", year: "2023", icon: "🏏" },
-            { name: "Prof. Suresh Iyer", category: "research", achievement: "Published in Nature", field: "Biotechnology", year: "2025", icon: "📚" },
-            { name: "Anjali Desai", category: "entrepreneurship", achievement: "Forbes 30 Under 30", field: "Tech Startup", year: "2024", icon: "💼" },
-            { name: "Karthik Menon", category: "sports", achievement: "Chess Grandmaster", field: "Chess", year: "2025", icon: "♟️" },
-            { name: "Dr. Lakshmi Pillai", category: "academics", achievement: "IIT Best Researcher", field: "AI/ML", year: "2024", icon: "🎓" },
-            { name: "Vivek Singh", category: "social", achievement: "Environmental Champion", field: "Climate Action", year: "2025", icon: "🌱" },
-            { name: "Divya Krishnan", category: "arts", achievement: "National Film Award", field: "Documentary", year: "2024", icon: "🎬" }
-        ];
-
-        // Sample Mentors Data
-        const mentors = [
-            { name: "Rajesh Khanna", expertise: "Software Development", company: "Google", experience: "15 years", icon: "👨‍💻" },
-            { name: "Pooja Mehta", expertise: "Medical Research", company: "WHO", experience: "12 years", icon: "👩‍⚕️" },
-            { name: "Arjun Kapoor", expertise: "Investment Banking", company: "JP Morgan", experience: "10 years", icon: "👨‍💼" },
-            { name: "Nisha Verma", expertise: "Data Science", company: "Amazon", experience: "8 years", icon: "👩‍💻" },
-            { name: "Siddharth Rao", expertise: "Entrepreneurship", company: "Own Startup", experience: "14 years", icon: "👨‍💼" },
-            { name: "Kavita Joshi", expertise: "Law & Policy", company: "Supreme Court", experience: "18 years", icon: "👩‍⚖️" }
-        ];
-
-        // Sample Feedback Data
-        let feedbackData = [
-            { author: "Alumni 2020", message: "This platform is amazing! Helped me connect with batchmates.", date: "2026-01-15" },
-            { author: "Student", message: "Found a great mentorship opportunity through this portal.", date: "2026-01-20" },
-            { author: "Alumni 2018", message: "The job listings section is very useful. Got referrals!", date: "2026-02-01" }
-        ];
-
-        // =============== NAVIGATION FUNCTIONS ===============
-        
-        function navigate(sectionId) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => section.classList.remove('active'));
-            
-            // Show selected section
-            const targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                targetSection.classList.add('active');
-            }
-            
-            // Update nav links
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => link.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // Load content based on section
-            switch(sectionId) {
-                case 'profiles':
-                    loadProfiles();
-                    break;
-                case 'jobs':
-                    loadJobs();
-                    break;
-                case 'events':
-                    loadEvents();
-                    break;
-                case 'achievements':
-                    loadAchievements();
-                    break;
-                case 'mentorship':
-                    loadMentors();
-                    break;
-                case 'feedback':
-                    loadFeedback();
-                    break;
-            }
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // =============== LOGIN FUNCTIONS ===============
-        
-        function showLogin() {
-            document.getElementById('login-modal').classList.add('active');
-            document.getElementById('email-error').classList.remove('active');
-        }
-
-        function hideLogin() {
-            document.getElementById('login-modal').classList.remove('active');
-            document.getElementById('user-id').value = '';
-            document.getElementById('user-password').value = '';
-            document.getElementById('email-error').classList.remove('active');
-            pendingAction = null;
-        }
-
-        function validateGitamEmail(email) {
-            // Regex pattern for GITAM email domains
-            const gitamPattern = /^[a-zA-Z0-9._%+-]+@(gitam\.in|gitam\.edu|student\.gitam\.edu)$/;
-            return gitamPattern.test(email);
-        }
-
-        function handleLogin(event) {
-            event.preventDefault();
-            const userEmail = document.getElementById('user-id').value;
-            const password = document.getElementById('user-password').value;
-            const errorMsg = document.getElementById('email-error');
-            
-            // Validate GITAM email format
-            if (!validateGitamEmail(userEmail)) {
-                errorMsg.classList.add('active');
-                return;
-            }
-            
-            errorMsg.classList.remove('active');
-            
-            // Simple validation (Demo purposes)
-            const validPassword = 'gitam123';
-            
-            if (password === validPassword) {
-                isLoggedIn = true;
-                currentUser = userEmail;
-                alert('✅ Login Successful! Welcome to Alumni Portal.');
-                hideLogin();
-                
-                // Execute pending action if any
-                if (pendingAction) {
-                    pendingAction();
-                    pendingAction = null;
-                }
-            } else {
-                alert('❌ Invalid password. Please try again.\n\nDemo password: gitam123');
-            }
-        }
-
-        function checkLoginAndExecute(action) {
-            if (!isLoggedIn) {
-                pendingAction = action;
-                showLogin();
-                return false;
-            }
-            return true;
-        }
-
-        // =============== DATA LOADING FUNCTIONS ===============
-        
-        function loadProfiles() {
-            const container = document.getElementById('profiles-grid');
-            let html = '';
-            
-            alumniProfiles.forEach((profile, index) => {
-                html += `
-                    <div class="card" onclick="showProfileDetail(${index})">
-                        <div class="card-image">${profile.icon}</div>
-                        <div class="card-body">
-                            <h3>${profile.name}</h3>
-                            <p><strong>${profile.position}</strong></p>
-                            <p>${profile.company}</p>
-                            ${profile.research ? '<p style="color: #008B8B; font-size: 0.85rem;">📄 Research Published</p>' : ''}
-                            <span class="card-badge">${profile.stream}</span>
-                            <span class="card-badge">Batch ${profile.year}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function showProfileDetail(index) {
-            if (!checkLoginAndExecute(() => showProfileDetail(index))) return;
-            
-            const profile = alumniProfiles[index];
-            const modal = document.getElementById('detail-modal');
-            const content = document.getElementById('detail-body-content');
-            
-            let html = `
-                <div class="detail-header">
-                    <div class="detail-icon">${profile.icon}</div>
-                    <div class="detail-info">
-                        <h2>${profile.name}</h2>
-                        <p><strong>${profile.position}</strong> at ${profile.company}</p>
-                        <p>📍 ${profile.location} | 🎓 Batch of ${profile.year}</p>
-                    </div>
-                </div>
-                <div class="detail-body">
-                    <h3>About</h3>
-                    <p>${profile.bio}</p>
-                    
-                    <h3>Stream</h3>
-                    <p>${profile.stream.charAt(0).toUpperCase() + profile.stream.slice(1)}</p>
-                    
-                    ${profile.research ? `
-                        <h3>📚 Research Publication</h3>
-                        <p><strong>${profile.research}</strong></p>
-                        <p style="color: #666; font-size: 0.9rem;">For more details about this research, please contact the alumni directly.</p>
-                    ` : ''}
-                    
-                    <h3>Contact</h3>
-                    <p>✉️ ${profile.email}</p>
-                </div>
-                <div class="detail-actions">
-                    <button class="btn-secondary" onclick="closeDetailModal()">Close</button>
-                    <button class="btn-primary" onclick="requestConnection('${profile.name}', '${profile.email}')">Connect</button>
-                </div>
-            `;
-            
-            content.innerHTML = html;
-            modal.classList.add('active');
-        }
-
-        function closeDetailModal() {
-            document.getElementById('detail-modal').classList.remove('active');
-        }
-
-        function requestConnection(name, email) {
-            alert(`✅ Connection request sent to ${name}!\n\nYou can reach out at: ${email}`);
-            closeDetailModal();
-        }
-
-        function loadJobs() {
-            const container = document.getElementById('jobs-grid');
-            let html = '';
-            
-            jobListings.forEach((job, index) => {
-                html += `
-                    <div class="card" onclick="showJobDetail(${index})">
-                        <div class="card-image">${job.icon}</div>
-                        <div class="card-body">
-                            <h3>${job.title}</h3>
-                            <p><strong>${job.company}</strong></p>
-                            <p>📍 ${job.location}</p>
-                            <p>💰 ${job.salary}</p>
-                            <span class="card-badge">${job.type}</span>
-                            <span class="card-badge">${job.domain}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function showJobDetail(index) {
-            if (!checkLoginAndExecute(() => showJobDetail(index))) return;
-            
-            const job = jobListings[index];
-            alert(`📋 Job Details\n\nPosition: ${job.title}\nCompany: ${job.company}\nLocation: ${job.location}\nSalary: ${job.salary}\nType: ${job.type}\n\n✅ To apply, please login and contact the alumni network.`);
-        }
-
-        function loadEvents() {
-            const container = document.getElementById('events-grid');
-            let html = '';
-            
-            events.forEach((event, index) => {
-                html += `
-                    <div class="card" onclick="showEventDetail(${index})">
-                        <div class="card-image">${event.icon}</div>
-                        <div class="card-body">
-                            <h3>${event.title}</h3>
-                            <p><strong>📅 ${event.date}</strong></p>
-                            <p>📍 ${event.location}</p>
-                            <p>${event.description}</p>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function showEventDetail(index) {
-            if (!checkLoginAndExecute(() => showEventDetail(index))) return;
-            
-            const event = events[index];
-            const registerConfirm = confirm(`🎉 ${event.title}\n\n📅 Date: ${event.date}\n📍 Location: ${event.location}\n\n${event.description}\n\nWould you like to register for this event?`);
-            
-            if (registerConfirm) {
-                alert('✅ Registration successful! You will receive confirmation email shortly.');
-            }
-        }
-
-        function loadAchievements() {
-            const container = document.getElementById('achievements-grid');
-            let html = '';
-            
-            achievements.forEach((achievement, index) => {
-                html += `
-                    <div class="card" onclick="showAchievementDetail(${index})">
-                        <div class="card-image">${achievement.icon}</div>
-                        <div class="card-body">
-                            <h3>${achievement.name}</h3>
-                            <p><strong>${achievement.achievement}</strong></p>
-                            <p>${achievement.field}</p>
-                            <p>Year: ${achievement.year}</p>
-                            <span class="card-badge">${achievement.category}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function showAchievementDetail(index) {
-            if (!checkLoginAndExecute(() => showAchievementDetail(index))) return;
-            
-            const achievement = achievements[index];
-            alert(`🏆 Achievement Details\n\nName: ${achievement.name}\nAchievement: ${achievement.achievement}\nField: ${achievement.field}\nYear: ${achievement.year}\nCategory: ${achievement.category}`);
-        }
-
-        function loadMentors() {
-            const container = document.getElementById('mentors-grid');
-            let html = '';
-            
-            mentors.forEach((mentor, index) => {
-                html += `
-                    <div class="card">
-                        <div class="card-image">${mentor.icon}</div>
-                        <div class="card-body">
-                            <h3>${mentor.name}</h3>
-                            <p><strong>${mentor.expertise}</strong></p>
-                            <p>${mentor.company}</p>
-                            <p>Experience: ${mentor.experience}</p>
-                            <button class="btn-primary" style="margin-top: 1rem;" onclick="event.stopPropagation(); requestMentorship(${index})">Request Mentorship</button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function requestMentorship(mentorIndex) {
-            if (!checkLoginAndExecute(() => requestMentorship(mentorIndex))) return;
-            
-            const mentor = mentors[mentorIndex];
-            const modal = document.getElementById('mentorship-modal');
-            const messageBox = document.getElementById('mentorship-message');
-            
-            // Generate introduction message template
-            const userName = currentUser ? currentUser.split('@')[0].replace('.', ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : 'Student';
-            
-            const introMessage = `Dear ${mentor.name},
-
-I hope this message finds you well. My name is ${userName}, and I am reaching out through the GITAM Alumni Association Portal.
-
-I am deeply interested in ${mentor.expertise} and noticed your impressive background at ${mentor.company}. With your ${mentor.experience} of experience in the field, I believe your guidance would be invaluable to my career development.
-
-I would be honored if you could mentor me and share your insights on:
-- Industry best practices and trends
-- Career growth strategies
-- Technical skills development
-- Networking and professional development
-
-I am committed to making the most of this mentorship opportunity and would be flexible with your schedule for our interactions.
-
-Thank you for considering my request. I look forward to the possibility of learning from your experience.
-
-Best regards,
-${userName}
-${currentUser || 'yourname@gitam.edu'}`;
-            
-            messageBox.value = introMessage;
-            modal.classList.add('active');
-            
-            // Store mentor info for sending
-            window.currentMentorRequest = mentor;
-        }
-
-        function closeMentorshipModal() {
-            document.getElementById('mentorship-modal').classList.remove('active');
-            window.currentMentorRequest = null;
-        }
-
-        function sendMentorshipRequest() {
-            const message = document.getElementById('mentorship-message').value;
-            const mentor = window.currentMentorRequest;
-            
-            if (mentor && message.trim()) {
-                alert(`✅ Mentorship request sent to ${mentor.name}!\n\nYour introduction has been forwarded. You will receive a response at ${currentUser} within 3-5 business days.`);
-                closeMentorshipModal();
-            } else {
-                alert('⚠️ Please write an introduction message.');
-            }
-        }
-
-        function loadFeedback() {
-            const container = document.getElementById('feedback-container');
-            let html = '';
-            
-            feedbackData.forEach(feedback => {
-                html += `
-                    <div class="feedback-item">
-                        <div class="author">${feedback.author}</div>
-                        <div class="message">${feedback.message}</div>
-                        <div class="date">${feedback.date}</div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        // =============== FILTER FUNCTIONS ===============
-        
-        function filterProfiles() {
-            const stream = document.getElementById('stream-filter').value;
-            const year = document.getElementById('year-filter').value;
-            
-            const container = document.getElementById('profiles-grid');
-            let filteredProfiles = alumniProfiles;
-            
-            if (stream !== 'all') {
-                filteredProfiles = filteredProfiles.filter(p => p.stream === stream);
-            }
-            
-            if (year !== 'all') {
-                filteredProfiles = filteredProfiles.filter(p => p.year === year);
-            }
-            
-            let html = '';
-            filteredProfiles.forEach((profile, index) => {
-                const originalIndex = alumniProfiles.indexOf(profile);
-                html += `
-                    <div class="card" onclick="showProfileDetail(${originalIndex})">
-                        <div class="card-image">${profile.icon}</div>
-                        <div class="card-body">
-                            <h3>${profile.name}</h3>
-                            <p><strong>${profile.position}</strong></p>
-                            <p>${profile.company}</p>
-                            ${profile.research ? '<p style="color: #008B8B; font-size: 0.85rem;">📄 Research Published</p>' : ''}
-                            <span class="card-badge">${profile.stream}</span>
-                            <span class="card-badge">Batch ${profile.year}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html || '<p>No profiles found matching the filters.</p>';
-        }
-
-        function filterJobs() {
-            const domain = document.getElementById('job-domain-filter').value;
-            const type = document.getElementById('job-type-filter').value;
-            
-            const container = document.getElementById('jobs-grid');
-            let filteredJobs = jobListings;
-            
-            if (domain !== 'all') {
-                filteredJobs = filteredJobs.filter(j => j.domain === domain);
-            }
-            
-            if (type !== 'all') {
-                filteredJobs = filteredJobs.filter(j => j.type === type);
-            }
-            
-            let html = '';
-            filteredJobs.forEach((job, index) => {
-                const originalIndex = jobListings.indexOf(job);
-                html += `
-                    <div class="card" onclick="showJobDetail(${originalIndex})">
-                        <div class="card-image">${job.icon}</div>
-                        <div class="card-body">
-                            <h3>${job.title}</h3>
-                            <p><strong>${job.company}</strong></p>
-                            <p>📍 ${job.location}</p>
-                            <p>💰 ${job.salary}</p>
-                            <span class="card-badge">${job.type}</span>
-                            <span class="card-badge">${job.domain}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html || '<p>No jobs found matching the filters.</p>';
-        }
-
-        function filterAchievements() {
-            const category = document.getElementById('achievement-category-filter').value;
-            
-            const container = document.getElementById('achievements-grid');
-            let filteredAchievements = achievements;
-            
-            if (category !== 'all') {
-                filteredAchievements = filteredAchievements.filter(a => a.category === category);
-            }
-            
-            let html = '';
-            filteredAchievements.forEach((achievement, index) => {
-                const originalIndex = achievements.indexOf(achievement);
-                html += `
-                    <div class="card" onclick="showAchievementDetail(${originalIndex})">
-                        <div class="card-image">${achievement.icon}</div>
-                        <div class="card-body">
-                            <h3>${achievement.name}</h3>
-                            <p><strong>${achievement.achievement}</strong></p>
-                            <p>${achievement.field}</p>
-                            <p>Year: ${achievement.year}</p>
-                            <span class="card-badge">${achievement.category}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html || '<p>No achievements found matching the filter.</p>';
-        }
-
-        // =============== FEEDBACK SUBMISSION ===============
-        
-        function submitFeedback() {
-            const textarea = document.getElementById('feedback-textarea');
-            const message = textarea.value.trim();
-            
-            if (message) {
-                const newFeedback = {
-                    author: 'Anonymous User',
-                    message: message,
-                    date: new Date().toISOString().split('T')[0]
-                };
-                
-                feedbackData.unshift(newFeedback);
-                loadFeedback();
-                textarea.value = '';
-                alert('✅ Thank you for your feedback!');
-            } else {
-                alert('⚠️ Please enter your feedback before submitting.');
-            }
-        }
-
-        // =============== INITIALIZE ON PAGE LOAD ===============
-        
-        window.onload = function() {
-            // Load default content
-            loadProfiles();
-            loadJobs();
-            loadEvents();
-            loadAchievements();
-            loadMentors();
-            loadFeedback();
-        };
-    </script>
+    <script src="script.js"></script>
 
 </body>
 
